@@ -1,8 +1,15 @@
 .dfm-tool-bar {
     display: flex;
-    justify-content: space-between !important;
+    justify-content: space-between;
 }
 
 .dfm-nav-bar-menu-item-container {
     display: flex;
+}
+
+.dfm-bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
