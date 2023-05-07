@@ -1,0 +1,36 @@
+@media only screen and (min-width: 600px) {
+    .dfm-feed-paper {
+        margin-top: 30px;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 600px) {
+    .dfm-feed-paper {
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .dfm-feed-paper {
+        margin-top: 0px;
+    }
+}
+
+.dfm-feed-paper {
+    display: flex;
+    flex-direction: column;
+}
+
+.dfm-feed-post-list {
+    list-style-type: none;
+    width: 80%;
+}
+
+.dfm-feed-post-list-item {
+    margin-bottom: 10px;
+}
+
+.dfm-feed-paper h4 {
+    text-align: left;
+    margin-left: 40px;
+}

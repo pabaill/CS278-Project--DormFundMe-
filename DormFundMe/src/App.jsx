@@ -3,6 +3,7 @@ import {ThemeProvider, Typography, createTheme} from '@mui/material';
 import { themeOptions } from './assets/theme/theme';
 import DFMNavBar from './assets/components/NavBar/dfm-nav-bar';
 import { useState } from 'react';
+import DFMFeed from './assets/components/Feed/dfm-feed';
 
 function App() {
   const theme = createTheme(themeOptions);
@@ -12,9 +13,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <DFMNavBar changePage={changePage} />
         {currPage == "feed" ? (
-        <Typography variant='body'>
-          This is the feed
-        </Typography>
+        <DFMFeed />
         ) : (<></>)}
         {currPage == "calendar" ? (
         <Typography variant='body'>

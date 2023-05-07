@@ -14,4 +14,7 @@ export const themeOptions = {
       main: '#1ff72a',
     },
   },
+  typography: {
+    fontFamily: "'Ubuntu', sans-serif"
+  }
 };
