@@ -21,7 +21,7 @@ function DFMPost({post}) {
                 </div>
                 <div className='dfm-post-info' onClick={() => handleOpen(true)}>
                     <Typography variant="body1">{post.title}</Typography>
-                    <Typography variant="caption">{post.date.toLocaleDateString('en-US', dateOptions)}</Typography>
+                    <Typography variant="caption">{post.date.toLocaleDateString('en-US', dateOptions)} at {post.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</Typography>
                 </div>
             </Paper>
             <Modal open={modalOpen} onClose={() => handleOpen(false)}>
@@ -34,7 +34,7 @@ function DFMPost({post}) {
                     <CloseIcon onClick={() => handleOpen(false)} className="dfm-post-modal-close"></CloseIcon>
                     <div className='dfm-post-modal-info'>
                         <Typography variant="body1">
-                        {post.date.toLocaleDateString('en-US', dateOptions)}
+                        {post.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} on {post.date.toLocaleDateString('en-US', dateOptions)}
                         </Typography>
                         <Typography variant="body1">
                             {post.author}
