@@ -1,7 +1,6 @@
 import {Typography, Paper, Modal, Box, Button} from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import CloseIcon from '@mui/icons-material/Close';
 import "./dfm-post.css";
 import { useState } from 'react';
 import DFMEventModal from "../EventModal/dfm-event-modal";
@@ -16,6 +15,7 @@ function DFMPost({post}) {
         <div>
             <Paper elevation={5} className='dfm-post-paper'>
                 <div className='dfm-post-buttons'>
+                    {/* TODO: Make icons buttons that are interactive */}
                     <KeyboardArrowUpIcon />
                     <Typography variant="button">{post.upvotes}</Typography>
                     <KeyboardArrowDownIcon />

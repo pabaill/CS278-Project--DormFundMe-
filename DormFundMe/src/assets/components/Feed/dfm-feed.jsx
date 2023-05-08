@@ -8,6 +8,7 @@ const sample_desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, se
 const stock_img = "https://images.megapixl.com/2219/22193936.jpg";
 
 function DFMFeed() {
+    // Dummy posts for testing
     const posts = [{
         title: "Floor Dinner",
         upvotes: 10,
@@ -35,6 +36,7 @@ function DFMFeed() {
     ];
     
     return (
+        // TODO: "Add posts" button/menu, filtering of posts
         <Paper className='dfm-feed-paper'>
             <Typography variant='h4'>Trending in {dormname}</Typography>
             <ul className='dfm-feed-post-list'>

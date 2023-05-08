@@ -17,7 +17,7 @@ function App() {
         ) : (<></>)}
         {currPage == "calendar" ? (
         <Typography variant='body'>
-          This is the calendar
+          {/* TODO: Make a calendar component and put it here */}
         </Typography>
         ) : (<></>)}
       </ThemeProvider>
