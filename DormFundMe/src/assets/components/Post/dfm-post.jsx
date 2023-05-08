@@ -4,6 +4,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import CloseIcon from '@mui/icons-material/Close';
 import "./dfm-post.css";
 import { useState } from 'react';
+import DFMEventModal from "../EventModal/dfm-event-modal";
 
 const dateOptions = {weekday: 'long', month: 'numeric', day: 'numeric'};
 
@@ -24,29 +25,7 @@ function DFMPost({post}) {
                     <Typography variant="caption">{post.date.toLocaleDateString('en-US', dateOptions)} at {post.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</Typography>
                 </div>
             </Paper>
-            <Modal open={modalOpen} onClose={() => handleOpen(false)}>
-                <Box className='dfm-post-modal'>
-                    <header>
-                        <Typography variant="h3" style={{textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden"}}>
-                            {post.title}
-                        </Typography>
-                    </header>
-                    <CloseIcon onClick={() => handleOpen(false)} className="dfm-post-modal-close"></CloseIcon>
-                    <div className='dfm-post-modal-info'>
-                        <Typography variant="body1">
-                        {post.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} on {post.date.toLocaleDateString('en-US', dateOptions)}
-                        </Typography>
-                        <Typography variant="body1">
-                            {post.author}
-                        </Typography>
-                        <Typography variant="body2">
-                        {post.description}
-                        </Typography>
-                    </div>
-                    <img className='dfm-post-image' src={post.image}></img>
-                    {/* TODO: Display comments */}
-                </Box>
-            </Modal>
+            <DFMEventModal post={post} modalOpen={modalOpen} handleOpen={handleOpen} dateOptions={dateOptions} />
         </div>
     )
 }

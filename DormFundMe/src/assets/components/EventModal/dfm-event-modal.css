@@ -1,0 +1,60 @@
+.dfm-post-modal {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #292929;
+    color: white;
+    min-width: 60%;
+    min-height: 50%;
+    margin: 10% 20%;
+    padding: 10px;
+}
+
+.dfm-post-modal header {
+    position: absolute;
+    top: 0;
+}
+
+.dfm-post-modal-close {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+}
+
+.dfm-post-image {
+    display: block;
+    max-width: 50%;
+    max-height: 50%;
+    width: auto;
+    height: auto;
+    grid-column-start: 2;
+    padding: 10px;
+    margin-top: 30px;
+}
+
+.dfm-post-modal header {
+    width: 90%;
+}
+
+@media only screen and (max-width: 800px) {
+    .dfm-post-modal {
+        display: flex;
+        flex-direction: column;
+        max-width: 80%;
+        max-height: 80%;
+        margin: 5% 10%;
+    }
+    .dfm-post-image {
+        display: block;
+        max-width: 80%;
+        max-height: 80%;
+        width: auto;
+        height: auto;
+        padding: 10px;
+    }
+    .dfm-post-modal-info {
+        margin-top: 50px;
+    }
+}
