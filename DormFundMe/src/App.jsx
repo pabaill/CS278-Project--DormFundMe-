@@ -13,12 +13,15 @@ function App() {
       <ThemeProvider theme={theme}>
         <DFMNavBar changePage={changePage} />
         {currPage == "feed" ? (
-        <DFMFeed />
+        <div className="dfm-page">
+          <DFMFeed />
+        </div>
         ) : (<></>)}
         {currPage == "calendar" ? (
-        <Typography variant='body'>
+        <div className="dfm-page">
+          This is a placeholder
           {/* TODO: Make a calendar component and put it here */}
-        </Typography>
+        </div>
         ) : (<></>)}
       </ThemeProvider>
     </>
