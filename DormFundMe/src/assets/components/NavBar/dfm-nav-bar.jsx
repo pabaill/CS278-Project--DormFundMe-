@@ -7,7 +7,8 @@ import "./dfm-nav-bar.css"
 
 const indexToPage = {
   0: "feed",
-  1: "calendar"
+  1: "calendar",
+  2: "profile"
 };
 
 function DFMNavBar({changePage}) {
@@ -37,16 +38,8 @@ function DFMNavBar({changePage}) {
               <Tabs value={currTabIndex} onChange={handleTabChange} centered>
                 <Tab label="Feed" />
                 <Tab label="Calendar" />
+                <Tab icon={<AccountCircle />} />
               </Tabs>
-              <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
             </div>
           </Toolbar>
         </AppBar>

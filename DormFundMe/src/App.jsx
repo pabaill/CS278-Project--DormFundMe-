@@ -4,6 +4,7 @@ import { themeOptions } from './assets/theme/theme';
 import DFMNavBar from './assets/components/NavBar/dfm-nav-bar';
 import { useState } from 'react';
 import DFMFeed from './assets/components/Feed/dfm-feed';
+import DFMProfile from './assets/components/Profile/dfm-profile';
 
 function App() {
   const theme = createTheme(themeOptions);
@@ -21,6 +22,11 @@ function App() {
         <div className="dfm-page">
           This is a placeholder
           {/* TODO: Make a calendar component and put it here */}
+        </div>
+        ) : (<></>)}
+        {currPage == "profile" ? (
+        <div className="dfm-page">
+          <DFMProfile />
         </div>
         ) : (<></>)}
       </ThemeProvider>
