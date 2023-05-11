@@ -1,3 +1,32 @@
 .dfm-profile-paper {
+    display: flex;
+
+}
+
+.dfm-profile-avatar-info-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.dfm-profile-avatar {
+    min-width: 250px;
+    min-height: 250px;
+    border: 4px solid forestgreen;
+}
+
+.dfm-profile-avatar-username-box {
+    color: black;
+    background-color: grey;
+    border-radius: 10px;
+    height: 40px;
+    min-width: 250px;
+    margin-top: -30px;
+    z-index: 1;
+}
+
+.dfm-profile-info-update-container {
     margin-top: 20px;
 }
