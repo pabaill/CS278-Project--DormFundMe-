@@ -1,7 +1,18 @@
 .dfm-profile-paper {
-    display: flex;
-
+    padding: 20px;
 }
+
+.dfm-profile-content {
+    padding-top: 50px;
+    display: flex;
+}
+
+@media only screen and (min-width: 480px) and (max-width: 600px) {
+    .dfm-profile-content {
+        flex-direction: column;
+        align-items: center;
+    }
+  }
 
 .dfm-profile-avatar-info-container {
     width: 50%;
@@ -29,4 +40,9 @@
 
 .dfm-profile-info-update-container {
     margin-top: 20px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 20px;
 }

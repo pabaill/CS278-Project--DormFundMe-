@@ -1,4 +1,4 @@
-import {FormControl, FormHelperText, Input, InputLabel, Typography, Paper, Avatar, Box} from '@mui/material';
+import {Select, MenuItem, Button, FormControl, FormHelperText, Input, InputLabel, Typography, Paper, Avatar, Box} from '@mui/material';
 import "./dfm-profile.css";
 
 
@@ -11,28 +11,57 @@ function DFMProfile() {
 
     return (
         <Paper elevation={5} className='dfm-profile-paper'>
-            <Typography position="absolute" variant="h4" textAlign="left">Profile</Typography>
-            <div className='dfm-profile-avatar-info-container'>
-                <Avatar className='dfm-profile-avatar'
-                alt={DEF_USER.name} 
-                src='https://upload.wikimedia.org/wikipedia/commons/c/c0/Nicolas_Cage_Deauville_2013.jpg'>
-                </Avatar>
-                <Box className='dfm-profile-avatar-username-box'>
-                    <Typography variant="h5">
-                        {DEF_USER.username}
-                    </Typography>
-                </Box>
-            </div>
-            <div>
-                <Typography align='left' variant="h5">Profile Info</Typography>
-                <div className="dfm-profile-info-update-container">
-                    <FormControl>
-                        <InputLabel htmlFor="new-username">Username</InputLabel>
-                        <Input id="new-username" aria-describedby="username-helper-text" defaultValue={DEF_USER.username} />
-                        <FormHelperText id="username-helper-text">Other users can see this!</FormHelperText>
-                    </FormControl>
+            <Typography position="absolute" variant="h4" textAlign="left">Profile for {DEF_USER.name}</Typography>
+            <div className='dfm-profile-content'>
+                <div className='dfm-profile-avatar-info-container'>
+                    <Avatar className='dfm-profile-avatar'
+                    alt={DEF_USER.name} 
+                    src='https://upload.wikimedia.org/wikipedia/commons/c/c0/Nicolas_Cage_Deauville_2013.jpg'>
+                    </Avatar>
+                    <Box className='dfm-profile-avatar-username-box'>
+                        <Typography variant="h5">
+                            {DEF_USER.username}
+                        </Typography>
+                    </Box>
+                </div>
+                <div>
+                    <Typography align='left' variant="h5">Profile Info</Typography>
+                    <div className="dfm-profile-info-update-container">
+                        <FormControl className='dfm-profile-form-control'>
+                            <InputLabel htmlFor="new-username">Username</InputLabel>
+                            <Input id="new-username" aria-describedby="username-helper-text" defaultValue={DEF_USER.username} />
+                        </FormControl>
+                        <FormControl>
+                            <InputLabel id="remind-me-label">Remind Me</InputLabel>
+                            <Select
+                                labelId="remind-me-label"
+                                id="event-reminders-select"
+                                label="Remind Me"
+                                defaultValue={1}
+                            >
+                                <MenuItem value={1}>1 Hour Before</MenuItem>
+                                <MenuItem value={2}>1 Day Before</MenuItem>
+                                <MenuItem value={3}>3 Days Before</MenuItem>
+                                <MenuItem value={4}>1 Week Before</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <FormControl>
+                            <InputLabel id="notification-label">Notify Me With</InputLabel>
+                            <Select
+                                labelId="notification-label"
+                                id="notif-select"
+                                label="Notify Me With"
+                                defaultValue={1}
+                            >
+                                <MenuItem value={1}>Email</MenuItem>
+                                <MenuItem value={2}>Text</MenuItem>
+                                <MenuItem value={3}>None</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
                 </div>
             </div>
+            <Button type='submit' variant='outlined'>Save Changes</Button>
         </Paper>
     )
 }
