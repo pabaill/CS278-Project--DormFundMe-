@@ -2,13 +2,9 @@ import { Button, Typography, Paper } from '@mui/material';
 import "./dfm-feed.css";
 import DFMPost from "../Post/dfm-post";
 import { useState } from 'react';
-import DFMEventModal from "../EventModal/dfm-event-modal";
+import DFMPostCreateModal from '../PostCreationModal/dfm-post-creation-modal';
 
 const dormname = "DORMNAME";
-
-const sample_desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor at auctor urna nunc. Sit amet luctus venenatis lectus magna. Nisl nunc mi ipsum faucibus. Vel risus commodo viverra maecenas. Leo vel orci porta non pulvinar neque. "
-const stock_img = "https://images.megapixl.com/2219/22193936.jpg";
-const dateOptions = {weekday: 'long', month: 'numeric', day: 'numeric'};
 
 function DFMFeed({posts}) {
 
@@ -28,7 +24,7 @@ function DFMFeed({posts}) {
                     </li>
                 ))}
             </ul>
-            <DFMEventModal post={posts[0]} modalOpen={modalOpen} handleOpen={handleOpen} dateOptions={dateOptions} />
+            <DFMPostCreateModal modalOpen={modalOpen} handleOpen={handleOpen} />
         </Paper>
     );
 }

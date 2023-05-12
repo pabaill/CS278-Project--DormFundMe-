@@ -1,9 +1,9 @@
 import {Typography, Modal, Box, TextField} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import "./dfm-event-modal.css";
+import "./dfm-post-creation-modal.css";
 
 
-function DFMModal({post, modalOpen, handleOpen, dateOptions}) {
+function DFMPostCreateModal({modalOpen, handleOpen}) {
     return (
         <Modal open={modalOpen} onClose={() => handleOpen(false)}>
                 <Box className='dfm-post-creation-modal'>
@@ -26,4 +26,4 @@ function DFMModal({post, modalOpen, handleOpen, dateOptions}) {
     )
 }
 
-export default DFMModal;
+export default DFMPostCreateModal;

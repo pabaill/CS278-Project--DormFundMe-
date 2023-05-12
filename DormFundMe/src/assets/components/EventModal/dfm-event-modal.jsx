@@ -4,7 +4,7 @@ import "./dfm-event-modal.css";
 
 
 
-function DFMModal({post, modalOpen, handleOpen, dateOptions}) {
+function DFMEventModal({post, modalOpen, handleOpen, dateOptions}) {
     return (
         <Modal open={modalOpen} onClose={() => handleOpen(false)}>
                 <Box className='dfm-post-modal'>
@@ -32,4 +32,4 @@ function DFMModal({post, modalOpen, handleOpen, dateOptions}) {
     )
 }
 
-export default DFMModal;
+export default DFMEventModal;
