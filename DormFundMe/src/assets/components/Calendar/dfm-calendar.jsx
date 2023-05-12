@@ -3,6 +3,7 @@ import "./dfm-calendar.css";
 import DFMPost from "../Post/dfm-post";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import React, { useState } from 'react';
 
 const dormname = "DORMNAME";
 
@@ -36,12 +37,64 @@ function DFMCalendar() {
         image: stock_img
     }
     ];
+    const top = {
+        // Other styles
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent:'center',
+        alignItems:'center'
+    }
+    const [value, onChange] = useState(new Date());
+
+    const makeAlert = () => { 
+        alert('New date is: ');
+    }
+
+    // hard coded values for first quarter
+    const firstDayF = new Date(2023, 3, 4);
+    const lastDayT = new Date(2023, 5, 12);
+    // theoretically, should be able to calculate these
+    // but can't make it work out :/
+    const firstDayS = new Date (2023, 4, 1);
+    const firstDayT = new Date (2023, 5, 1);
+
+    const lastDayF = new Date (2023, 4, 0);
+    const lastDayS = new Date (2023, 5, 0);
+    
 
     return (
         // TODO: "Add posts" button/menu, filtering of posts
         <Paper className='dfm-feed-paper'>
             <Typography variant='h4'>Calendar for {dormname}</Typography>
-            <Calendar />
+            <div style={top}>
+                <Calendar 
+                    onChange={onChange} 
+                    value={value} 
+                    minDate={firstDayF}
+                    maxDate={lastDayF}
+                    minDetail="year"
+                    showNeighboringMonth="false"
+                    onClick={() => makeAlert()}
+                />
+                <Calendar 
+                    onChange={onChange} 
+                    value={value} 
+                    minDate={firstDayS}
+                    maxDate={lastDayS}
+                    minDetail="year"
+                    showNeighboringMonth="false"
+                    onClick={() => makeAlert()}
+                />
+                <Calendar 
+                    onChange={onChange} 
+                    value={value} 
+                    minDate={firstDayT}
+                    maxDate={lastDayT}
+                    minDetail="year"
+                    showNeighboringMonth="false"
+                    onClick={() => makeAlert()}
+                />
+            </div>
         </Paper>
     );
 }
