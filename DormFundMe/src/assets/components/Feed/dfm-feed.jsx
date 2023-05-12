@@ -10,36 +10,9 @@ const sample_desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, se
 const stock_img = "https://images.megapixl.com/2219/22193936.jpg";
 const dateOptions = {weekday: 'long', month: 'numeric', day: 'numeric'};
 
-function DFMFeed() {
+function DFMFeed({posts}) {
 
     const [modalOpen, handleOpen] = useState(false);
-
-    // Dummy posts for testing
-    const posts = [{
-        title: "Floor Dinner",
-        upvotes: 10,
-        date: new Date("05-09-2023"),
-        author: "@anon-aardvark",
-        description: sample_desc,
-        image: stock_img
-    },
-    {
-        title: "Ping Pong Tournament",
-        upvotes: 4,
-        date: new Date("05-23-2023"),
-        author: "@some-guy",
-        description: sample_desc,
-        image: stock_img
-    },
-    {
-        title: "Clothing Swap",
-        upvotes: 2,
-        date: new Date("05-14-2023"),
-        author: "@third-floor-phantom",
-        description: sample_desc,
-        image: stock_img
-    }
-    ];
 
     return (
         // TODO: "Add posts" button/menu, filtering of posts
