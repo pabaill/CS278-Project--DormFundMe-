@@ -1,6 +1,8 @@
 import {Typography, Paper} from '@mui/material';
 import "./dfm-calendar.css";
 import DFMPost from "../Post/dfm-post";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 const dormname = "DORMNAME";
 
@@ -34,12 +36,12 @@ function DFMCalendar() {
         image: stock_img
     }
     ];
-    
+
     return (
         // TODO: "Add posts" button/menu, filtering of posts
         <Paper className='dfm-feed-paper'>
             <Typography variant='h4'>Calendar for {dormname}</Typography>
-            
+            <Calendar />
         </Paper>
     );
 }
