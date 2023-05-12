@@ -1,4 +1,4 @@
-import {Typography, Modal, Box} from '@mui/material';
+import {Typography, Modal, Box, TextField} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import "./dfm-event-modal.css";
 
@@ -26,7 +26,7 @@ function DFMModal({post, modalOpen, handleOpen, dateOptions}) {
                         </Typography>
                     </div>
                     <img className='dfm-post-image' src={post.image}></img>
-                    {/* TODO: Display comments */}
+                    <TextField className='dfm-post-new-comment-field' label="New Comment" variant='outlined' />
                 </Box>
             </Modal>
     )
