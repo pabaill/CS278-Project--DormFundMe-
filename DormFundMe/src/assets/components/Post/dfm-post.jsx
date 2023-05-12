@@ -10,15 +10,25 @@ const dateOptions = {weekday: 'long', month: 'numeric', day: 'numeric'};
 function DFMPost({post}) {
 
     const [modalOpen, handleOpen] = useState(false);
+
+    const handleUpvotes = () => {
+        alert('clicked');
+        this.posts.upvotes++;
+    }
+
+    const handleDownvotes = () => {
+        alert('clicked');
+        this.posts.upvotes--;
+    }
     
     return (
         <div>
             <Paper elevation={5} className='dfm-post-paper'>
                 <div className='dfm-post-buttons'>
                     {/* TODO: Make icons buttons that are interactive */}
-                    <KeyboardArrowUpIcon />
-                    <Typography variant="button">{post.upvotes}</Typography>
-                    <KeyboardArrowDownIcon />
+                    <KeyboardArrowUpIcon onClick={() => handleUpvotes()}/>
+                    <Typography variant="button" >{post.upvotes}</Typography>
+                    <KeyboardArrowDownIcon onClick={() => handleDownvotes()}/>
                 </div>
                 <div className='dfm-post-info' onClick={() => handleOpen(true)}>
                     <Typography variant="body1">{post.title}</Typography>
