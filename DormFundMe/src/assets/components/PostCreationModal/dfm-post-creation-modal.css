@@ -1,4 +1,4 @@
-.dfm-post-modal {
+.dfm-post-creation-modal {
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -12,12 +12,12 @@
     padding-top: 60px;
 }
 
-.dfm-post-modal header {
+.dfm-post-creation-modal header {
     position: absolute;
     top: 0;
 }
 
-.dfm-post-modal-close {
+.dfm-post-creation-modal-close {
     cursor: pointer;
     position: absolute;
     right: 0;
@@ -25,27 +25,16 @@
     width: 20px;
 }
 
-.dfm-post-image {
-    display: block;
-    max-width: 90%;
-    max-height: 90%;
-    width: auto;
-    height: auto;
-    grid-column-start: 2;
-    padding: 10px;
-    margin-top: 30px;
-}
-
-.dfm-post-modal header {
+.dfm-post-creation-modal header {
     width: 90%;
 }
 
-.dfm-post-new-comment-field {
+.dfm-post-name-field, .dfm-post-description-field, .dfm-post-location-field, .dfm-post-timeline-field, .dfm-post-benefit-field, .dfm-post-budget-field {
     min-width: 50%;
 }
 
 @media only screen and (max-width: 800px) {
-    .dfm-post-modal {
+    .dfm-post-creation-modal {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -53,15 +42,8 @@
         max-height: 80%;
         margin: 5% 10%;
     }
-    .dfm-post-image {
-        display: block;
-        max-width: 80%;
-        max-height: 80%;
-        width: auto;
-        height: auto;
-        padding: 10px;
-    }
-    .dfm-post-modal-info {
+
+    .dfm-post-creation-modal-info {
         margin-top: 50px;
     }
 }
