@@ -1,7 +1,6 @@
-import { Typography, Paper } from '@mui/material';
+import { Button, Typography, Paper } from '@mui/material';
 import "./dfm-feed.css";
 import DFMPost from "../Post/dfm-post";
-import Button from '@material-ui/core/Button';
 
 const dormname = "DORMNAME";
 
@@ -40,7 +39,7 @@ function DFMFeed() {
         // TODO: "Add posts" button/menu, filtering of posts
         <Paper className='dfm-feed-paper'>
             <Typography variant='h4'>Trending in {dormname}</Typography>
-            <Button variant="contained" New Post onClick={() => alert('clicked')}> 
+            <Button variant="contained" id="New Post" onClick={() => alert('clicked')}> 
                 New Post
             </Button>
             <ul className='dfm-feed-post-list'>
