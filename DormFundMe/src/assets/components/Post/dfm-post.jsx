@@ -13,12 +13,12 @@ function DFMPost({post}) {
 
     const handleUpvotes = () => {
         alert('clicked');
-        this.posts.upvotes++;
+        posts.upvotes++;
     }
 
     const handleDownvotes = () => {
         alert('clicked');
-        this.posts.upvotes--;
+        posts.upvotes--;
     }
     
     return (
