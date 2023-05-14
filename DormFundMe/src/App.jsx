@@ -3,6 +3,7 @@ import {ThemeProvider, Typography, createTheme} from '@mui/material';
 import { themeOptions } from './assets/theme/theme';
 import DFMNavBar from './assets/components/NavBar/dfm-nav-bar';
 import { useState } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import DFMFeed from './assets/components/Feed/dfm-feed';
 import DFMProfile from './assets/components/Profile/dfm-profile';
 import DFMCalendar from './assets/components/Calendar/dfm-calendar';
@@ -38,26 +39,21 @@ function App() {
 ];
 
   const theme = createTheme(themeOptions);
-  const [currPage, changePage] = useState("feed");
+  const [currPage, changePage] = useState(document.location.pathname);
+
   return (
     <>
       <ThemeProvider theme={theme}>
-        <DFMNavBar changePage={changePage} />
-        {currPage == "feed" ? (
-        <div className="dfm-page">
-          <DFMFeed posts={posts} />
-        </div>
-        ) : (<></>)}
-        {currPage == "calendar" ? (
-        <div className="dfm-page">
-          <DFMCalendar posts={posts} />
-        </div>
-        ) : (<></>)}
-        {currPage == "profile" ? (
-        <div className="dfm-page">
-          <DFMProfile />
-        </div>
-        ) : (<></>)}
+        <BrowserRouter>
+          <DFMNavBar changePage={changePage} currPage={currPage} />
+            <div className='dfm-page'>
+              <Routes path="/">
+                <Route index path="feed" element={<DFMFeed posts={posts} />}></Route>
+                <Route path="calendar" element={<DFMCalendar posts={posts} />}></Route>
+                <Route path="profile" element={<DFMProfile />}></Route>
+              </Routes>
+            </div>
+        </BrowserRouter>
       </ThemeProvider>
     </>
   );
