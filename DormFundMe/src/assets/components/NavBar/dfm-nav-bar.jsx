@@ -3,8 +3,9 @@ import {AccountCircle} from '@mui/icons-material'
 import EventIcon from '@mui/icons-material/Event';
 import FeedIcon from '@mui/icons-material/Feed';
 import { useState, useEffect } from 'react';
-import { Link, BrowserRouter, Route } from 'react-router-dom';
-import "./dfm-nav-bar.css"
+import { Link} from 'react-router-dom';
+import "./dfm-nav-bar.css";
+import logo from "./../../images/logo.png";
 
 const indexToPage = {
   0: "feed",
@@ -24,11 +25,9 @@ function DFMNavBar({changePage, currPage}) {
       window.addEventListener("resize", () => setWidth(window.innerWidth));
     }, []);
     return width > 480 ? (
-          <AppBar position="absolute">
+        <AppBar position="absolute">
           <Toolbar className='dfm-tool-bar'>
-            <Typography variant="h6" noWrap >
-              DormFundMe
-            </Typography>
+            <img src={logo} alt="Dorm Fund Me!" />
             <div className='dfm-nav-bar-menu-item-container'>
               <Tabs value={currTabIndex} onChange={handleTabChange} centered>
                 <Tab label="Feed" component={Link} to="/feed" value="/feed" />

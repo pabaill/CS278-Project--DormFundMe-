@@ -4,7 +4,7 @@ import DFMPost from "../Post/dfm-post";
 import { useState } from 'react';
 import DFMPostCreateModal from '../PostCreationModal/dfm-post-creation-modal';
 
-const dormname = "DORMNAME";
+const dormname = "Yost";
 
 function DFMFeed({posts}) {
 

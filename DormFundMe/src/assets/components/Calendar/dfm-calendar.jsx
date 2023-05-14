@@ -3,7 +3,7 @@ import "./dfm-calendar.css";
 import Calendar from 'react-calendar';
 import React, { useState } from 'react';
 
-const dormname = "DORMNAME";
+const dormname = "Yost";
 
 function DFMCalendar({posts}) {
     const top = {

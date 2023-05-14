@@ -1,5 +1,5 @@
 import './App.css'
-import {ThemeProvider, Typography, createTheme} from '@mui/material';
+import {ThemeProvider, createTheme} from '@mui/material';
 import { themeOptions } from './assets/theme/theme';
 import DFMNavBar from './assets/components/NavBar/dfm-nav-bar';
 import { useState } from 'react';
@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import DFMFeed from './assets/components/Feed/dfm-feed';
 import DFMProfile from './assets/components/Profile/dfm-profile';
 import DFMCalendar from './assets/components/Calendar/dfm-calendar';
+import DFMLogin from './assets/components/Login/dfm-login';
 
 function App() {
   // Dummy posts for testing
@@ -40,18 +41,25 @@ function App() {
 
   const theme = createTheme(themeOptions);
   const [currPage, changePage] = useState(document.location.pathname);
+  const [isLoggedIn, logIn] = useState(false);
 
   return (
     <>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <DFMNavBar changePage={changePage} currPage={currPage} />
+        {isLoggedIn ? (
+            <DFMNavBar changePage={changePage} currPage={currPage} />
+          ) : (
+            <Navigate to="/login" replace={true} />
+          )
+        }
             <div className='dfm-page'>
               <Routes path="/">
-                <Route index path="feed" element={<DFMFeed posts={posts} />}></Route>
-                <Route path="calendar" element={<DFMCalendar posts={posts} />}></Route>
-                <Route path="profile" element={<DFMProfile />}></Route>
-                <Route path="*" element={<Navigate to="/feed" replace={true} />}></Route>
+                  <Route exact path="login" element={<DFMLogin logIn={logIn}/>} />
+                  <Route index path="feed" element={<DFMFeed posts={posts} />} />
+                  <Route path="calendar" element={<DFMCalendar posts={posts} />} />
+                  <Route path="profile" element={<DFMProfile />} />
+                  <Route path="*" element={<Navigate to={isLoggedIn ? "/feed" : "/login"} replace={true} />} />
               </Routes>
             </div>
         </BrowserRouter>

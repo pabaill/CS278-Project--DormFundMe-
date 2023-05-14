@@ -4,7 +4,7 @@ import "./dfm-profile.css";
 
 function DFMProfile() {
     const DEF_USER = {
-        name: "Person Person",
+        name: "Firstname Lastname",
         username: "@that_guy",
         proflie_image: "brokenimage.jpg"
     }
@@ -62,6 +62,8 @@ function DFMProfile() {
                 </div>
             </div>
             <Button type='submit' variant='outlined'>Save Changes</Button>
+            <Button type='submit' variant='outlined' color='warning'>Logout</Button>
+            <Button type='submit' variant='outlined' color='error'>Delete Profile</Button>
         </Paper>
     )
 }
