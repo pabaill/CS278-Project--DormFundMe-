@@ -45,9 +45,9 @@ function DFMNavBar({changePage, currPage}) {
             onChange={handleTabChange}
             className='dfm-bottom-nav'
           >
-            <BottomNavigationAction label="Feed" icon={<FeedIcon />} />
-            <BottomNavigationAction label="Calendar" icon={<EventIcon />} />
-            <BottomNavigationAction label="Profile" icon={<AccountCircle />} />
+            <BottomNavigationAction label="Feed" icon={<FeedIcon />} component={Link} to="/feed" value="/feed" />
+            <BottomNavigationAction label="Calendar" icon={<EventIcon />} component={Link} to="/calendar" value="/calendar" />
+            <BottomNavigationAction label="Profile" icon={<AccountCircle />} component={Link} to="/profile" value="/profile" />
           </BottomNavigation>
         );
 }
