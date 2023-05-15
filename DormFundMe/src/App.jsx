@@ -55,7 +55,7 @@ function App() {
         }
             <div className='dfm-page'>
               <Routes path="/">
-                  <Route exact path="login" element={<DFMLogin logIn={logIn}/>} />
+                  <Route exact path="login" element={<DFMLogin logIn={logIn} changePage={changePage}/>} />
                   <Route index path="feed" element={<DFMFeed posts={posts} />} />
                   <Route path="calendar" element={<DFMCalendar posts={posts} />} />
                   <Route path="profile" element={<DFMProfile />} />
