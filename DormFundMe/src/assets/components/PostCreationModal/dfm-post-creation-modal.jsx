@@ -22,7 +22,7 @@ function DFMPostCreateModal({ modalOpen, handleOpen }) {
                     <TextField className='dfm-post-budget-field' label="Approximate Budget" variant='outlined' />
                     <input style={{ display: 'none' }} accept="image/*" type="file" id="select-image" />
                     <label className='dfm-post-upload-image-field' htmlFor="select-image">
-                        <Button variant="contained" color="primary" component="span">
+                        <Button variant="outlined" color="primary" component="span">
                             Upload Image
                         </Button>
                     </label>
