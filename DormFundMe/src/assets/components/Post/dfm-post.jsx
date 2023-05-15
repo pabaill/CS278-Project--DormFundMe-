@@ -28,7 +28,7 @@ function DFMPost({post}) {
                 <div className='dfm-post-buttons'>
                     {/* TODO: Make icons buttons that are interactive */}
                     <KeyboardArrowUpIcon onClick={() => handleUpvotes()}/>
-                    <Typography variant="button" >{upvotes}</Typography>
+                    <Typography variant="button" color="primary">{upvotes}</Typography>
                     <KeyboardArrowDownIcon onClick={() => handleDownvotes()}/>
                 </div>
                 <div className='dfm-post-info' onClick={() => handleOpen(true)}>
