@@ -21,15 +21,15 @@ function DFMPostCreateModal({ modalOpen, handleOpen }) {
                     <TextField className='dfm-post-benefit-field' label="Who would benefit?" variant='outlined' />
                     <TextField className='dfm-post-budget-field' label="Approximate Budget" variant='outlined' />
                     <input style={{ display: 'none' }} accept="image/*" type="file" id="select-image" />
-                    <label className='dfm-post-upload-image-field' htmlFor="select-image">
-                        <Button variant="outlined" color="primary" component="span">
+                    <label htmlFor="select-image">
+                        <Button variant="contained" color="primary" component="span">
                             Upload Image
                         </Button>
                     </label>
                 </div>
-                <div>
+                <div className="dfm-post-creation-modal-buttons">
                     <Button type='submit' variant='outlined'>Submit</Button>
-                    <Button type='submit' variant='outlined' color='warning'>Save for Later</Button>
+                    <Button type='submit' variant='outlined' color='warning'>Save Draft</Button>
                     <Button type='submit' variant='outlined' color='error'>Delete</Button>
                 </div>
             </Box>
