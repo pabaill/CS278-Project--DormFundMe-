@@ -58,7 +58,7 @@ function App() {
                   <Route exact path="login" element={<DFMLogin logIn={logIn} changePage={changePage}/>} />
                   <Route index path="feed" element={<DFMFeed posts={posts} />} />
                   <Route path="calendar" element={<DFMCalendar posts={posts} />} />
-                  <Route path="profile" element={<DFMProfile />} />
+                  <Route path="profile" element={<DFMProfile logIn={logIn} />} />
                   <Route path="*" element={<Navigate to={isLoggedIn ? "/feed" : "/login"} replace={true} />} />
               </Routes>
             </div>

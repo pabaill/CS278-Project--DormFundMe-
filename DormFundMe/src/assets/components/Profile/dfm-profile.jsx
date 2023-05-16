@@ -69,7 +69,7 @@ function DFMProfile({profileCreate, logIn, changePage}) {
             ) : (
                 <div>
                     <Button type='submit' variant='outlined'>Save Changes</Button>
-                    <Button type='submit' variant='outlined' color='warning'>Logout</Button>
+                    <Button LinkComponent={Link} to="/login" type='submit' variant='outlined' onClick={() => logIn(false)} color='warning'>Logout</Button>
                     <Button type='submit' variant='outlined' color='error'>Delete Profile</Button>
                 </div>
             )}

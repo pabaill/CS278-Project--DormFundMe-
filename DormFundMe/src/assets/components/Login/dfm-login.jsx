@@ -8,7 +8,8 @@ import { useState } from "react";
 function DFMLogin({logIn, changePage}) {
     const [isCreatingAccount, toggleCreate] = useState(false);
     return (
-        <Box className="dfm-login-box">
+        <div>
+            <Box className="dfm-login-box">
             <img src={logo} alt="Dorm Fund Me logo" />
             <Typography fontStyle="italic" variant="caption">"Stress Free Event Planning, All In One Place"</Typography>
             <FormControl>
@@ -23,10 +24,11 @@ function DFMLogin({logIn, changePage}) {
                 <Button style={{margin: "10px"}} LinkComponent={Link} to="/feed" variant="contained" onClick={() => {logIn(true); changePage("/feed")}}>Log In</Button>
                 <Button variant="contained" onClick={() => {toggleCreate(true)}}>Create Account</Button>    
             </div>
+            </Box>
             <Modal open={isCreatingAccount} onClose={() => toggleCreate(false)}>
                 <DFMProfile profileCreate={true} logIn={logIn} changePage={changePage} />
             </Modal>
-        </Box>
+        </div>
     );
 }
 
