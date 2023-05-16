@@ -17,7 +17,7 @@ function DFMProfile({profileCreate, logIn, changePage}) {
                 <div className='dfm-profile-avatar-info-container'>
                     <Avatar className='dfm-profile-avatar'
                     alt={DEF_USER.name} 
-                    src='https://upload.wikimedia.org/wikipedia/commons/c/c0/Nicolas_Cage_Deauville_2013.jpg'>
+                    src='brokenimage.jpg'>
                     </Avatar>
                     <Box className='dfm-profile-avatar-username-box'>
                         <Typography variant="h5">

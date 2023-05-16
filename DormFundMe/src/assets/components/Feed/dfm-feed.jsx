@@ -14,7 +14,6 @@ function DFMFeed({posts}) {
     const {post_id} = useParams()
     const [modalOpen, handleOpen] = useState(false);
     const [linkedOpen, handleLinkedOpen] = useState(post_id !== undefined)
-    console.log(linkedOpen);
 
     return (
         // TODO: "Add posts" button/menu, filtering of posts

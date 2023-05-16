@@ -57,7 +57,8 @@ function App() {
             <div className='dfm-page'>
               <Routes path="/">
                   <Route exact path="login" element={<DFMLogin logIn={logIn} changePage={changePage}/>} />
-                  <Route index path="feed/:post_id" element={<DFMFeed posts={posts} changePosts={changePosts} />} />
+                  <Route path="feed" element={<DFMFeed posts={posts} changePosts={changePosts} />} />
+                  <Route path="feed/:post_id" element={<DFMFeed posts={posts} changePosts={changePosts} />} />
                   <Route path="calendar" element={<DFMCalendar posts={posts} />} />
                   <Route path="profile" element={<DFMProfile logIn={logIn} />} />
                   <Route path="*" element={<Navigate to={isLoggedIn ? "/feed" : "/login"} replace={true} />} />
