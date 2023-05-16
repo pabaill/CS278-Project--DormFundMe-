@@ -1,8 +1,9 @@
 import {Select, MenuItem, Button, FormControl, FormHelperText, Input, InputLabel, Typography, Paper, Avatar, Box} from '@mui/material';
 import "./dfm-profile.css";
+import { Link } from 'react-router-dom';
 
 
-function DFMProfile() {
+function DFMProfile({profileCreate, logIn, changePage}) {
     const DEF_USER = {
         name: "Firstname Lastname",
         username: "@that_guy",
@@ -16,7 +17,7 @@ function DFMProfile() {
                 <div className='dfm-profile-avatar-info-container'>
                     <Avatar className='dfm-profile-avatar'
                     alt={DEF_USER.name} 
-                    src='https://upload.wikimedia.org/wikipedia/commons/c/c0/Nicolas_Cage_Deauville_2013.jpg'>
+                    src='brokenimage.jpg'>
                     </Avatar>
                     <Box className='dfm-profile-avatar-username-box'>
                         <Typography variant="h5">
@@ -61,9 +62,17 @@ function DFMProfile() {
                     </div>
                 </div>
             </div>
-            <Button type='submit' variant='outlined'>Save Changes</Button>
-            <Button type='submit' variant='outlined' color='warning'>Logout</Button>
-            <Button type='submit' variant='outlined' color='error'>Delete Profile</Button>
+            {profileCreate ? (
+                <div>
+                    <Button LinkComponent={Link} to="/profile" type='submit' variant='outlined' onClick={() => {logIn(true); changePage("/profile")}}>Save Changes</Button>
+                </div>
+            ) : (
+                <div>
+                    <Button type='submit' variant='outlined'>Save Changes</Button>
+                    <Button LinkComponent={Link} to="/login" type='submit' variant='outlined' onClick={() => logIn(false)} color='warning'>Logout</Button>
+                    <Button type='submit' variant='outlined' color='error'>Delete Profile</Button>
+                </div>
+            )}
         </Paper>
     )
 }

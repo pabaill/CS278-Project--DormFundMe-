@@ -15,7 +15,7 @@ function DFMEventModal({post, modalOpen, handleOpen, dateOptions}) {
                     </header>
                     <CloseIcon onClick={() => handleOpen(false)} className="dfm-post-modal-close"></CloseIcon>
                     <div className='dfm-post-modal-info'>
-                        <Typography variant="body1">
+                        <Typography variant="body1" color='primary'>
                         {post.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} on {post.date.toLocaleDateString('en-US', dateOptions)}
                         </Typography>
                         <Typography variant="body1">

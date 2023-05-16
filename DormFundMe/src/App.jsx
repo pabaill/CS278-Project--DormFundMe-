@@ -13,7 +13,7 @@ function App() {
   // Dummy posts for testing
   const sample_desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor at auctor urna nunc. Sit amet luctus venenatis lectus magna. Nisl nunc mi ipsum faucibus. Vel risus commodo viverra maecenas. Leo vel orci porta non pulvinar neque. "
   const stock_img = "https://images.megapixl.com/2219/22193936.jpg";
-  const posts = [{
+  const default_posts = [{
     title: "Floor Dinner",
     upvotes: 10,
     date: new Date("05-09-2023"),
@@ -40,8 +40,9 @@ function App() {
 ];
 
   const theme = createTheme(themeOptions);
-  const [currPage, changePage] = useState(document.location.pathname);
-  const [isLoggedIn, logIn] = useState(false);
+  const [currPage, changePage] = useState("/" + document.location.pathname.split('/')[1]);
+  const [isLoggedIn, logIn] = useState(true);
+  const[posts, changePosts] = useState(default_posts);
 
   return (
     <>
@@ -56,9 +57,10 @@ function App() {
             <div className='dfm-page'>
               <Routes path="/">
                   <Route exact path="login" element={<DFMLogin logIn={logIn} changePage={changePage}/>} />
-                  <Route index path="feed" element={<DFMFeed posts={posts} />} />
+                  <Route path="feed" element={<DFMFeed posts={posts} changePosts={changePosts} />} />
+                  <Route path="feed/:post_id" element={<DFMFeed posts={posts} changePosts={changePosts} />} />
                   <Route path="calendar" element={<DFMCalendar posts={posts} />} />
-                  <Route path="profile" element={<DFMProfile />} />
+                  <Route path="profile" element={<DFMProfile logIn={logIn} />} />
                   <Route path="*" element={<Navigate to={isLoggedIn ? "/feed" : "/login"} replace={true} />} />
               </Routes>
             </div>

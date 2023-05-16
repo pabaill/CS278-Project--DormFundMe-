@@ -61,7 +61,6 @@ function DFMCalendar({posts}) {
     /* Used by titleClassname to highlight days with events */
     function tileClassName({ date }) {
         if (highlightedDates.find((eventDay) => isSameDay(eventDay, date) === 0)) {
-            console.log(date);
             return 'highlight';
         }
     }
