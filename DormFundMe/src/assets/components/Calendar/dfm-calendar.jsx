@@ -33,14 +33,19 @@ function DFMCalendar({posts}) {
             return 0;
         }
     }
-    /* array of all event days */
-    const highlightedDates = posts.map((post) => post.date)
+
+    let highlightedDates = posts.map((post) => post.date)
+
+    useEffect(() => {
+        highlightedDates = posts.map((post) => post.date);
+    }, [posts]);
 
     /* used by onClickDay to check if there is an event on a clicked day */
     const checkForEvents = (value) => {
-        if (highlightedDates.find((eventDay) => isSameDay(eventDay, value) === 0)) {
-            handleOpen(true);
+        const i = highlightedDates.findIndex((eventDay) => isSameDay(eventDay, value) === 0)
+        if (i !== -1) {
             setCount(i);
+            handleOpen(true);
         }
     }
 
@@ -58,11 +63,6 @@ function DFMCalendar({posts}) {
     
     const [value, onChange] = useState(new Date());
     
-    let highlightedDates = posts.map((post) => post.date)
-
-    useEffect(() => {
-        highlightedDates = posts.map((post) => post.date);
-    }, [posts]);
 
     function tileClassName({ date, view }) {
         if (highlightedDates.find((eventDay) => isSameDay(eventDay, date) === 0)) {
