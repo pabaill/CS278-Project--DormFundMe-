@@ -40,8 +40,8 @@ function App() {
 ];
 
   const theme = createTheme(themeOptions);
-  const [currPage, changePage] = useState(document.location.pathname);
-  const [isLoggedIn, logIn] = useState(false);
+  const [currPage, changePage] = useState("/" + document.location.pathname.split('/')[1]);
+  const [isLoggedIn, logIn] = useState(true);
   const[posts, changePosts] = useState(default_posts);
 
   return (
@@ -57,7 +57,7 @@ function App() {
             <div className='dfm-page'>
               <Routes path="/">
                   <Route exact path="login" element={<DFMLogin logIn={logIn} changePage={changePage}/>} />
-                  <Route index path="feed" element={<DFMFeed posts={posts} changePosts={changePosts} />} />
+                  <Route index path="feed/:post_id?" element={<DFMFeed posts={posts} changePosts={changePosts} />} />
                   <Route path="calendar" element={<DFMCalendar posts={posts} />} />
                   <Route path="profile" element={<DFMProfile logIn={logIn} />} />
                   <Route path="*" element={<Navigate to={isLoggedIn ? "/feed" : "/login"} replace={true} />} />
