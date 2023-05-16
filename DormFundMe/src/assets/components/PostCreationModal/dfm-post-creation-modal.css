@@ -2,6 +2,7 @@
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10%;
     background-color: #292929;
     border-radius: 15px;
     color: white;
@@ -14,7 +15,7 @@
 
 .dfm-post-creation-modal header {
     position: absolute;
-    top: 0;
+    top: 2%;
 }
 
 .dfm-post-creation-modal-close {
@@ -27,6 +28,7 @@
 
 .dfm-post-creation-modal header {
     width: 90%;
+    left: 2%;
 }
 
 .dfm-post-name-field, .dfm-post-description-field, .dfm-post-location-field, .dfm-post-timeline-field, .dfm-post-benefit-field, .dfm-post-budget-field {
@@ -34,11 +36,23 @@
 }
 
 .dfm-post-creation-modal-buttons {
-    grid-column-start: 1;
+    display: flex;
+    justify-content: space-around;
+
 }
 
-.dfm-post-creation-modal-info {
-    display: grid;
+.dfm-post-creation-modal-info-col-1 {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-content: center;
+    grid-template-columns: 1fr 1fr;
+}
+.dfm-post-creation-modal-info-col-2 {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-content: center;
     grid-template-columns: 1fr 1fr;
 }
 
