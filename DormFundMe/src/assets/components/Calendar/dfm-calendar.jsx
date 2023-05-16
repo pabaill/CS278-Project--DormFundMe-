@@ -23,6 +23,7 @@ function DFMCalendar({posts}) {
     const [modalOpen, handleOpen] = useState(false);
     const [count, setCount] = useState(0);
 
+    /* Comparison function for two date types */
     function isSameDay(a, b) {
         if (a > b) {
             return 1;
@@ -32,15 +33,14 @@ function DFMCalendar({posts}) {
             return 0;
         }
     }
+    /* array of all event days */
+    const highlightedDates = posts.map((post) => post.date)
+
+    /* used by onClickDay to check if there is an event on a clicked day */
     const checkForEvents = (value) => {
-        let array = posts
-        let date1 = value
-        for (let i = 0; i < array.length; i++) {
-            let date2 = array[i].date
-            if (isSameDay(date1, date2) === 0) {
-                handleOpen(true);
-                setCount(i);
-            }
+        if (highlightedDates.find((eventDay) => isSameDay(eventDay, value) === 0)) {
+            handleOpen(true);
+            setCount(i);
         }
     }
 
@@ -57,10 +57,9 @@ function DFMCalendar({posts}) {
 
     
     const [value, onChange] = useState(new Date());
-    
-    const highlightedDates = posts.map((post) => post.date)
 
-    function tileClassName({ date, view }) {
+    /* Used by titleClassname to highlight days with events */
+    function tileClassName({ date }) {
         if (highlightedDates.find((eventDay) => isSameDay(eventDay, date) === 0)) {
             console.log(date);
             return 'highlight';
