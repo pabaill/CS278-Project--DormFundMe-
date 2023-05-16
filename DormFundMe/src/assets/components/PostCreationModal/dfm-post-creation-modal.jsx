@@ -3,7 +3,7 @@ import { DatePicker, LocalizationProvider} from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CloseIcon from '@mui/icons-material/Close';
 import "./dfm-post-creation-modal.css";
-
+import dayjs from 'dayjs';
 
 function DFMPostCreateModal({ modalOpen, handleOpen }) {
     return (
@@ -21,7 +21,7 @@ function DFMPostCreateModal({ modalOpen, handleOpen }) {
                     <TextField className='dfm-post-location-field' label="Location" variant='outlined' />
 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker label="Uncontrolled picker" defaultValue={dayjs('2022-04-17')} />
+                    <DatePicker label="Uncontrolled picker" defaultValue={dayjs(new Date())} />
                     </LocalizationProvider>
 
                     <TextField className='dfm-post-timeline-field' label="Timeline" variant='outlined' />
