@@ -1,5 +1,5 @@
 import { Typography, Modal, Box, Button, TextField, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { MobileDateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CloseIcon from '@mui/icons-material/Close';
 import "./dfm-post-creation-modal.css";
@@ -61,7 +61,7 @@ function DFMPostCreateModal({ modalOpen, handleOpen, changePosts, posts }) {
                 <div className='dfm-post-creation-modal-info-col-2'>
                     <TextField className='dfm-post-description-field' label="Description" variant='outlined' onChange={(e) => updateEvent("description", e.target.value)} />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker label="Event Date" defaultValue={dayjs(new Date())} onChange={(d) => updateEvent("date", d.$d)} />
+                        <MobileDateTimePicker label="Event Date" defaultValue={dayjs(new Date())} openTo="day" onChange={(d) => updateEvent("date", d.$d)} />
                     </LocalizationProvider>
 
                     <FormControl>
