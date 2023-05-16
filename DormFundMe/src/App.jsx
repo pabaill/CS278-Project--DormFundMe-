@@ -15,14 +15,18 @@ function App() {
   const stock_img = "https://images.megapixl.com/2219/22193936.jpg";
   const default_posts = [{
     title: "Floor Dinner",
-    upvotes: 10,
+    location: "Yost",
+    benefit: "Yost Residents",
     date: new Date("05-09-2023"),
     author: "@anon-aardvark",
     description: sample_desc,
-    image: stock_img
+    image: stock_img,
+    upvotes: 10,
 },
 {
     title: "Ping Pong Tournament",
+    location: "Yost",
+    benefit: "Yost Residents",
     upvotes: 4,
     date: new Date("05-23-2023"),
     author: "@some-guy",
@@ -31,6 +35,8 @@ function App() {
 },
 {
     title: "Clothing Swap",
+    location: "Yost",
+    benefit: "Yost Residents",
     upvotes: 2,
     date: new Date("05-14-2023"),
     author: "@third-floor-phantom",

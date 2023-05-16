@@ -10,7 +10,7 @@ const dormname = "Yost";
 const dateOptions = {weekday: 'long', month: 'numeric', day: 'numeric'};
 
 
-function DFMFeed({posts}) {
+function DFMFeed({posts, changePosts}) {
     const {post_id} = useParams()
     const [modalOpen, handleOpen] = useState(false);
     const [linkedOpen, handleLinkedOpen] = useState(post_id !== undefined)
@@ -29,8 +29,8 @@ function DFMFeed({posts}) {
                     </li>
                 ))}
             </ul>
-            <DFMPostCreateModal modalOpen={modalOpen} handleOpen={handleOpen} />
-            {post_id ? (
+            <DFMPostCreateModal modalOpen={modalOpen} handleOpen={handleOpen} changePosts={changePosts} posts={posts} />
+            {post_id && post_id < posts.length ? (
                 <DFMEventModal post={posts[post_id]} modalOpen={linkedOpen} handleOpen={handleLinkedOpen} dateOptions={dateOptions} ></DFMEventModal>
             ) : (<div />)}
         </Paper>

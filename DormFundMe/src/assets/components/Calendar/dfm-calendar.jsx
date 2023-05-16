@@ -1,7 +1,7 @@
 import {Typography, Paper} from '@mui/material';
 import "./dfm-calendar.css";
 import Calendar from 'react-calendar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DFMEventModal from "../EventModal/dfm-event-modal";
 import { Padding } from '@mui/icons-material';
 
@@ -57,9 +57,14 @@ function DFMCalendar({posts}) {
 
     
     const [value, onChange] = useState(new Date());
+    
+    let highlightedDates = posts.map((post) => post.date)
 
-    /* Used by titleClassname to highlight days with events */
-    function tileClassName({ date }) {
+    useEffect(() => {
+        highlightedDates = posts.map((post) => post.date);
+    }, [posts]);
+
+    function tileClassName({ date, view }) {
         if (highlightedDates.find((eventDay) => isSameDay(eventDay, date) === 0)) {
             return 'highlight';
         }

@@ -6,12 +6,34 @@ import "./dfm-post-creation-modal.css";
 import dayjs from 'dayjs';
 import { useState } from 'react';
 
-function DFMPostCreateModal({ modalOpen, handleOpen }) {
+function DFMPostCreateModal({ modalOpen, handleOpen, changePosts, posts }) {
     const [fileUploaded, saveUploadedFile] = useState(undefined);
+    const [newEvent, updateNewEvent] = useState({})
     const onFileUpload = (e) => {
         if (e.target.files) {
             saveUploadedFile(e.target.files[0].name)
         }
+    }
+
+    const handleSubmit = () => {
+        updateEvent("author", "@current-user");
+        updateEvent("upvotes", 0);
+        updateEvent("image", "https://images.megapixl.com/2219/22193936.jpg");
+        console.log(newEvent);
+        const newPosts = posts;
+        newPosts.push(newEvent)
+        changePosts(newPosts);
+        updateNewEvent({});
+        handleOpen(false);
+    }
+
+    const updateEvent = (field, val) => {
+        if (field === "date") {
+            val = new Date(val.getFullYear(), val.getMonth(), val.getDate());
+        }
+        const updatedEvent = newEvent;
+        updatedEvent[field] = val;
+        updateNewEvent(updatedEvent);
     }
 
     return (
@@ -25,9 +47,9 @@ function DFMPostCreateModal({ modalOpen, handleOpen }) {
                 <CloseIcon onClick={() => handleOpen(false)} className="dfm-post-creation-modal-close"></CloseIcon>
                 <div className='dfm-post-creation-modal-info-col-1'>
 
-                    <TextField className='dfm-post-name-field' label="Event Name" variant='outlined' />
-                    <TextField className='dfm-post-location-field' label="Location" variant='outlined' />
-                    <TextField className='dfm-post-benefit-field' label="Who would benefit?" variant='outlined' />
+                    <TextField className='dfm-post-name-field' label="Event Name" variant='outlined' onChange={(e) => updateEvent("title", e.target.value)} />
+                    <TextField className='dfm-post-location-field' label="Location" variant='outlined' onChange={(e) => updateEvent("location", e.target.value)}  />
+                    <TextField className='dfm-post-benefit-field' label="Who would benefit?" variant='outlined' onChange={(e) => updateEvent("benefit", e.target.value)} />
                     <input style={{ display: 'none' }} accept="image/*" type="file" id="select-image" onChange={(e) => onFileUpload(e)} />
                     <label htmlFor="select-image">
                         <Button variant="contained" color="primary" component="span">
@@ -37,9 +59,9 @@ function DFMPostCreateModal({ modalOpen, handleOpen }) {
                     </label>
                 </div>
                 <div className='dfm-post-creation-modal-info-col-2'>
-                    <TextField className='dfm-post-description-field' label="Description" variant='outlined' />
+                    <TextField className='dfm-post-description-field' label="Description" variant='outlined' onChange={(e) => updateEvent("description", e.target.value)} />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker label="Event Date" defaultValue={dayjs(new Date())} />
+                        <DatePicker label="Event Date" defaultValue={dayjs(new Date())} onChange={(d) => updateEvent("date", d.$d)} />
                     </LocalizationProvider>
 
                     <FormControl>
@@ -48,18 +70,19 @@ function DFMPostCreateModal({ modalOpen, handleOpen }) {
                             labelId="budget-label"
                             id="budget-select"
                             label="Approximate Budget"
-                            defaultValue={1}
+                            defaultValue={0}
+                            onChange={(e) => updateEvent("budget", e.target.value)}
                         >
-                            <MenuItem value={1}>Small ($0-$99)</MenuItem>
-                            <MenuItem value={2}>Medium ($100-$299)</MenuItem>
-                            <MenuItem value={3}>Large ($300-$999)</MenuItem>
-                            <MenuItem value={4}>Extra Large ($1000+)</MenuItem>
+                            <MenuItem value={0}>Small ($0-$99)</MenuItem>
+                            <MenuItem value={100}>Medium ($100-$299)</MenuItem>
+                            <MenuItem value={300}>Large ($300-$999)</MenuItem>
+                            <MenuItem value={1000}>Extra Large ($1000+)</MenuItem>
                         </Select>
                     </FormControl>
 
 
                     <div className="dfm-post-creation-modal-buttons">
-                        <Button type='submit' variant='outlined'>Submit</Button>
+                        <Button type='submit' variant='outlined' onClick={handleSubmit}>Submit</Button>
                         <Button type='submit' variant='outlined' color='warning'>Save Draft</Button>
                         <Button type='submit' variant='outlined' color='error'>Delete</Button>
                     </div>
