@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import DFMEventModal from "../EventModal/dfm-event-modal";
 import { Padding } from '@mui/icons-material';
 
+/* NOTE: We do not support multiple events on the same date yet. */
 
 const dormname = "Yost";
 
@@ -22,19 +23,23 @@ function DFMCalendar({posts}) {
     const [modalOpen, handleOpen] = useState(false);
     const [count, setCount] = useState(0);
 
+    function isSameDay(a, b) {
+        if (a > b) {
+            return 1;
+        } else if (a < b) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
     const checkForEvents = (value) => {
         let array = posts
         let date1 = value
-        console.log(value)
         for (let i = 0; i < array.length; i++) {
             let date2 = array[i].date
-            if (date1 > date2) {
-                console.log("Date 1 is greater than Date 2");
-            } else if (date1 < date2) {
-                console.log("Date 1 is less than Date 2");
-            } else {
-                handleOpen(true)
-                setCount(i)
+            if (isSameDay(date1, date2) === 0) {
+                handleOpen(true);
+                setCount(i);
             }
         }
     }
@@ -49,8 +54,19 @@ function DFMCalendar({posts}) {
 
     const lastDayF = new Date (2023, 4, 0);
     const lastDayS = new Date (2023, 5, 0);
+
     
     const [value, onChange] = useState(new Date());
+    
+    const highlightedDates = posts.map((post) => post.date)
+
+    function tileClassName({ date, view }) {
+        if (highlightedDates.find((eventDay) => isSameDay(eventDay, date) === 0)) {
+            console.log(date);
+            return 'highlight';
+        }
+    }
+    
     return (
         <div>
         <Paper className='dfm-feed-paper'>
@@ -58,7 +74,8 @@ function DFMCalendar({posts}) {
             <div style={top}>
                 <Calendar
                     className="react-calendar"
-                    onChange={onChange} 
+                    tileClassName = {tileClassName}
+                    onChange = {onChange} 
                     value = {value} 
                     minDate={firstDayF}
                     maxDate={lastDayF}
@@ -67,6 +84,8 @@ function DFMCalendar({posts}) {
                     onClickDay={(value) => checkForEvents(value)} 
                 />
                 <Calendar 
+                    className="react-calendar"
+                    tileClassName = {tileClassName}
                     onChange={onChange} 
                     value={value} 
                     minDate={firstDayS}
@@ -76,6 +95,8 @@ function DFMCalendar({posts}) {
                     onClickDay={(value) => checkForEvents(value)} 
                 />
                 <Calendar 
+                    className="react-calendar"
+                    tileClassName = {tileClassName}
                     onChange={onChange}  
                     value={value} 
                     minDate={firstDayT}
