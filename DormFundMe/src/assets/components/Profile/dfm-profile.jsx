@@ -7,7 +7,7 @@ function DFMProfile({profileCreate, logIn, changePage}) {
     const DEF_USER = {
         name: "Firstname Lastname",
         username: "@that_guy",
-        proflie_image: "brokenimage.jpg"
+        proflie_image: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Nicolas_Cage_Deauville_2013.jpg"
     }
 
     return (
@@ -17,10 +17,10 @@ function DFMProfile({profileCreate, logIn, changePage}) {
                 <div className='dfm-profile-avatar-info-container'>
                     <Avatar className='dfm-profile-avatar'
                     alt={DEF_USER.name} 
-                    src='brokenimage.jpg'>
+                    src={DEF_USER.proflie_image}>
                     </Avatar>
                     <Box className='dfm-profile-avatar-username-box'>
-                        <Typography variant="h5">
+                        <Typography variant="h5" textAlign="center">
                             {DEF_USER.username}
                         </Typography>
                     </Box>

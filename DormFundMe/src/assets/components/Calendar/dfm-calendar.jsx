@@ -5,8 +5,6 @@ import React, { useEffect, useState } from 'react';
 import DFMEventModal from "../EventModal/dfm-event-modal";
 import { Padding } from '@mui/icons-material';
 
-/* NOTE: We do not support multiple events on the same date yet. */
-
 const dormname = "Yost";
 
 const dateOptions = {weekday: 'long', month: 'numeric', day: 'numeric'};
@@ -22,6 +20,7 @@ function DFMCalendar({posts}) {
 
     const [modalOpen, handleOpen] = useState(false);
     const [count, setCount] = useState(0);
+    const [highlightManyPosts, setPostsToHighlight] = useState([]);
 
     /* Comparison function for two date types */
     function isSameDay(a, b) {
@@ -42,9 +41,13 @@ function DFMCalendar({posts}) {
 
     /* used by onClickDay to check if there is an event on a clicked day */
     const checkForEvents = (value) => {
-        const i = highlightedDates.findIndex((eventDay) => isSameDay(eventDay, value) === 0)
-        if (i !== -1) {
-            setCount(i);
+        let indices = highlightedDates.map((e, i) => isSameDay(e, value) === 0 ? i : '').filter(String)
+        if (indices.length === 1) {
+            setCount(indices[0]);
+            setPostsToHighlight([]);
+            handleOpen(true);
+        } else if (indices.length > 1) {
+            setPostsToHighlight(indices.map((i) => posts[i]));
             handleOpen(true);
         }
     }
@@ -111,7 +114,7 @@ function DFMCalendar({posts}) {
             </div>
             
         </Paper>
-        <DFMEventModal post={posts[count]} modalOpen={modalOpen} handleOpen={handleOpen} dateOptions={dateOptions} />
+        <DFMEventModal post={count === -1 ? -1 : posts[count]} posts={highlightManyPosts} modalOpen={modalOpen} handleOpen={handleOpen} dateOptions={dateOptions} setPostsToHighlight={setPostsToHighlight} />
 
         </div>
     );
