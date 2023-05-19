@@ -34,7 +34,7 @@ function DFMCalendar({posts}) {
         }
     }
 
-    let highlightedDates = posts.map((post) => post.date)
+    let highlightedDates = posts.map((post) => post.date);
 
     useEffect(() => {
         highlightedDates = posts.map((post) => post.date);
@@ -63,8 +63,8 @@ function DFMCalendar({posts}) {
     
     const [value, onChange] = useState(new Date());
     
-
-    function tileClassName({ date, view }) {
+    /* Used by tileClassName in Calendar to highlight days with events */
+    function tileClassName({ date }) {
         if (highlightedDates.find((eventDay) => isSameDay(eventDay, date) === 0)) {
             return 'highlight';
         }
