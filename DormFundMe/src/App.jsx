@@ -42,6 +42,26 @@ function App() {
     author: "@third-floor-phantom",
     description: sample_desc,
     image: stock_img
+},
+{
+  title: "Event 1",
+  location: "Yost",
+  benefit: "Yost Residents",
+  upvotes: 2,
+  date: new Date("05-19-2023"),
+  author: "@third-floor-phantom",
+  description: sample_desc,
+  image: stock_img
+},
+{
+  title: "Event 2",
+  location: "Yost",
+  benefit: "Yost Residents",
+  upvotes: 2,
+  date: new Date("05-19-2023"),
+  author: "@third-floor-phantom",
+  description: sample_desc,
+  image: stock_img
 }
 ];
 

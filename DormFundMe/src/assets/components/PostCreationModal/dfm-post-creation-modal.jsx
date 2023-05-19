@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 function DFMPostCreateModal({ modalOpen, handleOpen, changePosts, posts }) {
     const [fileUploaded, saveUploadedFile] = useState(undefined);
-    const [newEvent, updateNewEvent] = useState({})
+    const [newEvent, updateNewEvent] = useState({date: new Date()})
     const onFileUpload = (e) => {
         if (e.target.files) {
             saveUploadedFile(e.target.files[0].name)
