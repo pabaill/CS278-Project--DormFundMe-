@@ -3,25 +3,20 @@ import "./dfm-profile.css";
 import { Link } from 'react-router-dom';
 
 
-function DFMProfile({profileCreate, logIn, changePage}) {
-    const DEF_USER = {
-        name: "Firstname Lastname",
-        username: "@that_guy",
-        proflie_image: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Nicolas_Cage_Deauville_2013.jpg"
-    }
+function DFMProfile({profileCreate, logIn, changePage, user}) {
 
     return (
         <Paper elevation={5} className='dfm-profile-paper'>
-            <Typography position="absolute" variant="h4" textAlign="left">Profile for {DEF_USER.name}</Typography>
+            <Typography position="absolute" variant="h4" textAlign="left">Profile for {user.displayName}</Typography>
             <div className='dfm-profile-content'>
                 <div className='dfm-profile-avatar-info-container'>
                     <Avatar className='dfm-profile-avatar'
-                    alt={DEF_USER.name} 
-                    src={DEF_USER.proflie_image}>
+                    alt={user.username} 
+                    src={user.photoURL}>
                     </Avatar>
                     <Box className='dfm-profile-avatar-username-box'>
                         <Typography variant="h5" textAlign="center">
-                            {DEF_USER.username}
+                            {user.username}
                         </Typography>
                     </Box>
                 </div>
@@ -30,7 +25,7 @@ function DFMProfile({profileCreate, logIn, changePage}) {
                     <div className="dfm-profile-info-update-container">
                         <FormControl className='dfm-profile-form-control'>
                             <InputLabel htmlFor="new-username">Username</InputLabel>
-                            <Input id="new-username" aria-describedby="username-helper-text" defaultValue={DEF_USER.username} />
+                            <Input id="new-username" aria-describedby="username-helper-text" defaultValue={user.email.split('@')[0]} />
                         </FormControl>
                         <FormControl>
                             <InputLabel id="remind-me-label">Remind Me</InputLabel>

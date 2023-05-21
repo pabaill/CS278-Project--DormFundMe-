@@ -1,12 +1,13 @@
 import { Box, Button, FormControl, Modal, TextField, Typography } from "@mui/material";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import logo from "./../../images/logo.png";
 import "./dfm-login.css"
 import DFMProfile from "../Profile/dfm-profile";
 import { useState } from "react";
 
-function DFMLogin({logIn, changePage}) {
+function DFMLogin({handleLogin, changePage}) {
     const [isCreatingAccount, toggleCreate] = useState(false);
+    const navigate = useNavigate();
     return (
         <div>
             <Box className="dfm-login-box">
@@ -21,13 +22,13 @@ function DFMLogin({logIn, changePage}) {
                 </div>
             </FormControl>
             <div className="dfm-login-buttons">
-                <Button style={{margin: "10px"}} LinkComponent={Link} to="/feed" variant="contained" onClick={() => {logIn(true); changePage("/feed")}}>Log In</Button>
-                <Button variant="contained" onClick={() => {toggleCreate(true)}}>Create Account</Button>    
+                <Button style={{margin: "10px"}} variant="contained" onClick={() => handleLogin(navigate)}>Log In</Button>
+                {/* <Button variant="contained" onClick={() => {toggleCreate(true)}}>Create Account</Button>     */}
             </div>
             </Box>
-            <Modal open={isCreatingAccount} onClose={() => toggleCreate(false)}>
+            {/* <Modal open={isCreatingAccount} onClose={() => toggleCreate(false)}>
                 <DFMProfile profileCreate={true} logIn={logIn} changePage={changePage} />
-            </Modal>
+            </Modal> */}
         </div>
     );
 }
