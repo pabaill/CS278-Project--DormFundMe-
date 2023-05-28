@@ -29,97 +29,58 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const provider = new GoogleAuthProvider();
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 const auth = getAuth();
 
+// Initialize Database
+import { getDatabase, ref, set, get, child } from "firebase/database";
+
 function App() {
-  // Dummy posts for testing
-  const sample_desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor at auctor urna nunc. Sit amet luctus venenatis lectus magna. Nisl nunc mi ipsum faucibus. Vel risus commodo viverra maecenas. Leo vel orci porta non pulvinar neque. "
-  const stock_img = "https://images.megapixl.com/2219/22193936.jpg";
-  const default_posts = [{
-    title: "Floor Dinner",
-    location: "Yost",
-    benefit: "Yost Residents",
-    date: new Date("05-09-2023"),
-    author: "@anon-aardvark",
-    description: sample_desc,
-    image: stock_img,
-    upvotes: 10,
-},
-{
-    title: "Ping Pong Tournament",
-    location: "Yost",
-    benefit: "Yost Residents",
-    upvotes: 4,
-    date: new Date("05-23-2023"),
-    author: "@some-guy",
-    description: sample_desc,
-    image: stock_img
-},
-{
-    title: "Clothing Swap",
-    location: "Yost",
-    benefit: "Yost Residents",
-    upvotes: 2,
-    date: new Date("05-14-2023"),
-    author: "@third-floor-phantom",
-    description: sample_desc,
-    image: stock_img
-},
-{
-  title: "Event 1",
-  location: "Yost",
-  benefit: "Yost Residents",
-  upvotes: 2,
-  date: new Date("05-19-2023"),
-  author: "@third-floor-phantom",
-  description: sample_desc,
-  image: stock_img
-},
-{
-  title: "Event 2",
-  location: "Yost",
-  benefit: "Yost Residents",
-  upvotes: 2,
-  date: new Date("05-19-2023"),
-  author: "@third-floor-phantom",
-  description: sample_desc,
-  image: stock_img
-}
-];
 
   const theme = createTheme(themeOptions);
   const [currPage, changePage] = useState("/" + document.location.pathname.split('/')[1]);
   const [isLoggedIn, logIn] = useState(false);
-  const [posts, changePosts] = useState(default_posts);
+  const [posts, changePosts] = useState({});
   const [currentUser, setUser] = useState({});
 
   const handleLogin = (navigate) => {
     signInWithPopup(auth, provider).then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-    console.log(user);
-    setUser(user);
-    logIn(true);
-    changePage("/feed");
-    navigate("/feed");
-    }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-    });
+      // The signed-in user info.
+      const user = result.user;
+      // IdP data available using getAdditionalUserInfo(result)
+      const db = getDatabase();
+      const dbRef = ref(getDatabase());
+      get(child(dbRef, `users/${user.uid}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          console.log(snapshot.val())
+          setUser(snapshot.val());
+        } else {
+          // New user; set default values
+          const newUser = {
+            realname: user.displayName,
+            username: user.email.split('@')[0],
+            email: user.email,
+            profile_picture : user.photoURL
+          }
+          set(ref(db, 'users/' + user.uid), newUser);
+          setUser(newUser);
+        }
+        get(child(dbRef, `posts`)).then((snapshot) => {
+          if (snapshot.exists()) {
+            console.log("Found Posts! ", snapshot.val())
+            changePosts(snapshot.val());
+          } else {
+            console.log("Didn't Find Posts!");
+          }
+          logIn(true);
+          changePage("/feed");
+          navigate("/feed");
+        }).catch((error) => {
+          console.error(error);
+        });
+      }).catch(error => console.error(error));
+    }).catch(err => console.log(err));
   }
 
   return (
@@ -135,7 +96,7 @@ function App() {
             <div className='dfm-page'>
               <Routes path="/">
                   <Route exact path="login" element={<DFMLogin handleLogin={handleLogin} changePage={changePage}/>} />
-                  <Route path="feed" element={<DFMFeed posts={posts} changePosts={changePosts} />} />
+                  <Route path="feed" element={<DFMFeed posts={posts} changePosts={changePosts} user={currentUser} />} />
                   <Route path="feed/:post_id" element={<DFMFeed posts={posts} changePosts={changePosts} />} />
                   <Route path="calendar" element={<DFMCalendar posts={posts} />} />
                   <Route path="profile" element={<DFMProfile logIn={logIn} user={currentUser} />} />

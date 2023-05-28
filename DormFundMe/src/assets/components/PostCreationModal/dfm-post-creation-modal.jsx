@@ -5,8 +5,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import "./dfm-post-creation-modal.css";
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import { getDatabase, ref, set, get, child } from "firebase/database";
 
-function DFMPostCreateModal({ modalOpen, handleOpen, changePosts, posts }) {
+function DFMPostCreateModal({ modalOpen, handleOpen, changePosts, posts, user }) {
     const [fileUploaded, saveUploadedFile] = useState(undefined);
     const [newEvent, updateNewEvent] = useState({date: new Date()})
     const onFileUpload = (e) => {
@@ -16,12 +17,15 @@ function DFMPostCreateModal({ modalOpen, handleOpen, changePosts, posts }) {
     }
 
     const handleSubmit = () => {
-        updateEvent("author", "@current-user");
+        updateEvent("author", user.username);
         updateEvent("upvotes", 0);
         updateEvent("image", "https://images.megapixl.com/2219/22193936.jpg");
         console.log(newEvent);
+        const db = getDatabase();
+        const postsRef = ref(db, "posts");
+        postsRef.push(newEvent);
         const newPosts = posts;
-        newPosts.push(newEvent)
+        newPosts.push(newEvent);
         changePosts(newPosts);
         updateNewEvent({});
         handleOpen(false);
@@ -29,7 +33,7 @@ function DFMPostCreateModal({ modalOpen, handleOpen, changePosts, posts }) {
 
     const updateEvent = (field, val) => {
         if (field === "date") {
-            val = new Date(val.getFullYear(), val.getMonth(), val.getDate());
+            val = new Date(val.getFullYear(), val.getMonth(), val.getDate()).valueOf();
         }
         const updatedEvent = newEvent;
         updatedEvent[field] = val;

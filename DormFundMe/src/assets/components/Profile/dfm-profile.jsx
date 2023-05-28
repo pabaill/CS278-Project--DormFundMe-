@@ -12,7 +12,7 @@ function DFMProfile({profileCreate, logIn, changePage, user}) {
                 <div className='dfm-profile-avatar-info-container'>
                     <Avatar className='dfm-profile-avatar'
                     alt={user.username} 
-                    src={user.photoURL}>
+                    src={user.profile_picture}>
                     </Avatar>
                     <Box className='dfm-profile-avatar-username-box'>
                         <Typography variant="h5" textAlign="center">
@@ -25,7 +25,7 @@ function DFMProfile({profileCreate, logIn, changePage, user}) {
                     <div className="dfm-profile-info-update-container">
                         <FormControl className='dfm-profile-form-control'>
                             <InputLabel htmlFor="new-username">Username</InputLabel>
-                            <Input id="new-username" aria-describedby="username-helper-text" defaultValue={user.email.split('@')[0]} />
+                            <Input id="new-username" aria-describedby="username-helper-text" defaultValue={user.username} />
                         </FormControl>
                         <FormControl>
                             <InputLabel id="remind-me-label">Remind Me</InputLabel>

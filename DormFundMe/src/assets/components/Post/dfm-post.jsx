@@ -33,7 +33,7 @@ function DFMPost({post}) {
                 </div>
                 <div className='dfm-post-info' onClick={() => handleOpen(true)}>
                     <Typography variant="body1">{post.title}</Typography>
-                    <Typography variant="caption">{post.date.toLocaleDateString('en-US', dateOptions)} at {post.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</Typography>
+                    <Typography variant="caption">{new Date(post.date).toLocaleDateString('en-US', dateOptions)} at {new Date(post.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</Typography>
                 </div>
             </Paper>
             <DFMEventModal post={post} modalOpen={modalOpen} handleOpen={handleOpen} dateOptions={dateOptions} />

@@ -6,23 +6,14 @@ import DFMProfile from "../Profile/dfm-profile";
 import { useState } from "react";
 
 function DFMLogin({handleLogin, changePage}) {
-    const [isCreatingAccount, toggleCreate] = useState(false);
     const navigate = useNavigate();
     return (
         <div>
             <Box className="dfm-login-box">
             <img src={logo} alt="Dorm Fund Me logo" />
             <Typography fontStyle="italic" variant="caption">"Stress Free Event Planning, All In One Place"</Typography>
-            <FormControl>
-                <div className='dfm-login-input'>
-                    <TextField id="username" label="Username" variant="outlined" />
-                </div>
-                <div className='dfm-login-input'>
-                    <TextField id="password" type="password" label="Password" variant="outlined" />
-                </div>
-            </FormControl>
             <div className="dfm-login-buttons">
-                <Button style={{margin: "10px"}} variant="contained" onClick={() => handleLogin(navigate)}>Log In</Button>
+                <Button style={{margin: "10px"}} variant="contained" onClick={() => handleLogin(navigate)}>Log In With Google</Button>
                 {/* <Button variant="contained" onClick={() => {toggleCreate(true)}}>Create Account</Button>     */}
             </div>
             </Box>

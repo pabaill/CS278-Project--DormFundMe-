@@ -10,7 +10,7 @@ const dormname = "Yost";
 const dateOptions = {weekday: 'long', month: 'numeric', day: 'numeric'};
 
 
-function DFMFeed({posts, changePosts}) {
+function DFMFeed({posts, changePosts, user}) {
     const {post_id} = useParams()
     const [modalOpen, handleOpen] = useState(false);
     const [linkedOpen, handleLinkedOpen] = useState(post_id !== undefined)
@@ -23,15 +23,15 @@ function DFMFeed({posts, changePosts}) {
                 New Post
             </Button>
             <ul className='dfm-feed-post-list'>
-                {posts.map(p => (
-                    <li key={p.author + p.date.toString()} className='dfm-feed-post-list-item'>
+                {Object.values(posts).map(p => (
+                    <li key={p._id} className='dfm-feed-post-list-item'>
                         <DFMPost post={p}></DFMPost>
                     </li>
                 ))}
             </ul>
-            <DFMPostCreateModal modalOpen={modalOpen} handleOpen={handleOpen} changePosts={changePosts} posts={posts} />
+            <DFMPostCreateModal user={user} modalOpen={modalOpen} handleOpen={handleOpen} changePosts={changePosts} posts={posts} />
             {post_id && post_id < posts.length ? (
-                <DFMEventModal post={posts[post_id]} modalOpen={linkedOpen} handleOpen={handleLinkedOpen} dateOptions={dateOptions} ></DFMEventModal>
+                <DFMEventModal user={user} post={posts[post_id]} modalOpen={linkedOpen} handleOpen={handleLinkedOpen} dateOptions={dateOptions} ></DFMEventModal>
             ) : (<div />)}
         </Paper>
     );

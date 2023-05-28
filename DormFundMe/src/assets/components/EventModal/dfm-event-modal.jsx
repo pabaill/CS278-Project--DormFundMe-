@@ -34,7 +34,7 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
                     <CloseIcon onClick={() => handleOpen(false)} className="dfm-post-modal-close"></CloseIcon>
                     <div className='dfm-post-modal-info'>
                         <Typography variant="body1" color='primary'>
-                        {postToShow.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} on {postToShow.date.toLocaleDateString('en-US', dateOptions)}
+                        {new Date(postToShow.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} on {new Date(postToShow.date).toLocaleDateString('en-US', dateOptions)}
                         </Typography>
                         <Typography variant="body1">
                             {postToShow.author}

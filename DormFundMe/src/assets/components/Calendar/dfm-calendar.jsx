@@ -3,13 +3,14 @@ import "./dfm-calendar.css";
 import Calendar from 'react-calendar';
 import React, { useEffect, useState } from 'react';
 import DFMEventModal from "../EventModal/dfm-event-modal";
-import { Padding } from '@mui/icons-material';
 
 const dormname = "Yost";
 
 const dateOptions = {weekday: 'long', month: 'numeric', day: 'numeric'};
 
 function DFMCalendar({posts}) {
+    posts = Object.values(posts);
+
     const top = {
         // Other styles
         display: 'flex',
@@ -33,21 +34,23 @@ function DFMCalendar({posts}) {
         }
     }
 
-    let highlightedDates = posts.map((post) => post.date);
+    let highlightedDates = posts.map((post) => new Date(post.date));
 
     useEffect(() => {
-        highlightedDates = posts.map((post) => post.date);
+        highlightedDates = posts.map((post) => new Date(post.date));
     }, [posts]);
 
     /* used by onClickDay to check if there is an event on a clicked day */
     const checkForEvents = (value) => {
-        let indices = highlightedDates.map((e, i) => isSameDay(e, value) === 0 ? i : '').filter(String)
+        let indices = highlightedDates.map((e, i) => isSameDay(e.toDateString(), value.toDateString()) === 0 ? i : '').filter(String)
+        console.log(indices)
         if (indices.length === 1) {
             setCount(indices[0]);
             setPostsToHighlight([]);
             handleOpen(true);
         } else if (indices.length > 1) {
             setPostsToHighlight(indices.map((i) => posts[i]));
+            console.log(highlightManyPosts)
             handleOpen(true);
         }
     }
