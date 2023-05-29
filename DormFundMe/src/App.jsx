@@ -65,6 +65,7 @@ function App() {
         } else {
           // New user; set default values
           const newUser = {
+            _id: user.uid,
             realname: user.displayName,
             username: user.email.split('@')[0],
             email: user.email,

@@ -1,9 +1,26 @@
 import {Select, MenuItem, Button, FormControl, FormHelperText, Input, InputLabel, Typography, Paper, Avatar, Box} from '@mui/material';
 import "./dfm-profile.css";
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { get, child, ref, getDatabase } from 'firebase/database';
 
 
 function DFMProfile({profileCreate, logIn, changePage, user}) {
+
+    const [isAdmin, updatePrivileges] = useState(false);
+    const [postsToApprove, setApprovePosts] = useState([]);
+    const [postsToReview, setReviewPosts] = useState([]);
+
+    useEffect(() => {
+        get(child(ref(getDatabase()), `info`)).then((snapshot) => {
+            const data = snapshot.val();
+            updatePrivileges(data.admins.includes(user._id));
+            get(child(ref(getDatabase()), `posts`)).then((snapshot) => {
+                const posts = snapshot.val();
+                setApprovePosts(Object.values(posts).map(p => p.upvotes > data.upvoteThreshold ? p : '').filter(String));
+            });
+        });
+    }, [user])
 
     return (
         <Paper elevation={5} className='dfm-profile-paper'>
@@ -55,9 +72,28 @@ function DFMProfile({profileCreate, logIn, changePage, user}) {
                             </Select>
                         </FormControl>
                     </div>
+                    {isAdmin ? 
+                        <div>
+                        <Typography align='left' variant="h5">Admin Controls</Typography>
+                        <div className="dfm-profile-info-update-container">
+                            <div>
+                                <Typography align='left' variant="h6">Posts to Approve</Typography>
+                                <ul className='dfm-feed-post-list'>
+                                    {postsToApprove.map(p => (
+                                        <li key={p._id} className='dfm-feed-post-list-item'>
+                                            <Typography variant="body1">{p.title}</Typography>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div>
+                                <Typography align='left' variant="h6">Posts to Review</Typography>
+                            </div>
+                        </div>
+                    </div>: <></>}
                 </div>
             </div>
-            {profileCreate ? (
+            {/* {profileCreate ? (
                 <div>
                     <Button LinkComponent={Link} to="/profile" type='submit' variant='outlined' onClick={() => {logIn(true); changePage("/profile")}}>Save Changes</Button>
                 </div>
@@ -67,7 +103,7 @@ function DFMProfile({profileCreate, logIn, changePage, user}) {
                     <Button LinkComponent={Link} to="/login" type='submit' variant='outlined' onClick={() => logIn(false)} color='warning'>Logout</Button>
                     <Button type='submit' variant='outlined' color='error'>Delete Profile</Button>
                 </div>
-            )}
+            )} */}
         </Paper>
     )
 }
