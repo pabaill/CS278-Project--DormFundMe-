@@ -43,7 +43,6 @@ function DFMCalendar({posts}) {
     /* used by onClickDay to check if there is an event on a clicked day */
     const checkForEvents = (value) => {
         let indices = highlightedDates.map((e, i) => isSameDay(e.toDateString(), value.toDateString()) === 0 ? i : '').filter(String)
-        console.log(indices)
         if (indices.length === 1) {
             setCount(indices[0]);
             setPostsToHighlight([]);

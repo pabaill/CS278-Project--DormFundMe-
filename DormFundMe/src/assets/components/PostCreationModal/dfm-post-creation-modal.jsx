@@ -20,13 +20,10 @@ function DFMPostCreateModal({ modalOpen, handleOpen, changePosts, posts, user })
         updateEvent("author", user.username);
         updateEvent("upvotes", 0);
         updateEvent("image", "https://images.megapixl.com/2219/22193936.jpg");
+        updateEvent("_id", user.username + newEvent.date.valueOf());
         console.log(newEvent);
         const db = getDatabase();
-        const postsRef = ref(db, "posts");
-        postsRef.push(newEvent);
-        const newPosts = posts;
-        newPosts.push(newEvent);
-        changePosts(newPosts);
+        set(ref(db, 'posts/' + newEvent._id), newEvent);
         updateNewEvent({});
         handleOpen(false);
     }

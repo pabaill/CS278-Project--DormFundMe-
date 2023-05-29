@@ -2,7 +2,7 @@ import './App.css'
 import {ThemeProvider, createTheme} from '@mui/material';
 import { themeOptions } from './assets/theme/theme';
 import DFMNavBar from './assets/components/NavBar/dfm-nav-bar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import DFMFeed from './assets/components/Feed/dfm-feed';
 import DFMProfile from './assets/components/Profile/dfm-profile';
@@ -34,9 +34,16 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 const auth = getAuth();
 
 // Initialize Database
-import { getDatabase, ref, set, get, child } from "firebase/database";
+import { getDatabase, ref, set, get, child, onValue } from "firebase/database";
 
 function App() {
+
+  useEffect(() => {
+    onValue(child(ref(getDatabase()), `posts`), (snapshot) => {
+      const data = snapshot.val();
+      changePosts(data);
+    });
+  }, [])
 
   const theme = createTheme(themeOptions);
   const [currPage, changePage] = useState("/" + document.location.pathname.split('/')[1]);
