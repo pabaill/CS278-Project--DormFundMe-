@@ -3,12 +3,15 @@ import "./dfm-profile.css";
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { get, child, ref, getDatabase } from 'firebase/database';
+import DFMEventModal from '../EventModal/dfm-event-modal';
 
+const dateOptions = {weekday: 'long', month: 'numeric', day: 'numeric'};
 
 function DFMProfile({profileCreate, logIn, changePage, user}) {
 
     const [isAdmin, updatePrivileges] = useState(false);
     const [postsToApprove, setApprovePosts] = useState([]);
+    const [inPreview, setOpenPreview] = useState(false);
     const [postsToReview, setReviewPosts] = useState([]);
 
     useEffect(() => {
@@ -78,10 +81,17 @@ function DFMProfile({profileCreate, logIn, changePage, user}) {
                         <div className="dfm-profile-info-update-container">
                             <div>
                                 <Typography align='left' variant="h6">Posts to Approve</Typography>
-                                <ul className='dfm-feed-post-list'>
+                                <ul className='dfm-profile-post-view'>
                                     {postsToApprove.map(p => (
                                         <li key={p._id} className='dfm-feed-post-list-item'>
-                                            <Typography variant="body1">{p.title}</Typography>
+                                            <Paper onClick={() => setOpenPreview(true)}>
+                                                <Typography variant="body1">{p.title}</Typography>
+                                                <Button color='primary'>Approve</Button>
+                                                <Button color='info'>Preview</Button>
+                                                <Button color='error'>Reject</Button>
+                                            </Paper>
+                                            <DFMEventModal user={user} post={p} modalOpen={inPreview} handleOpen={setOpenPreview} dateOptions={dateOptions} >
+                                            </DFMEventModal>
                                         </li>
                                     ))}
                                 </ul>

@@ -10,17 +10,23 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
     const [index, changeIndex] = useState(0);
     const [postToShow, changePostToShow] = useState(post === -1 ? posts[0] : post);
     useEffect(() => {
-        if ( posts && posts.length > 1) {
-            changePostToShow(posts[0]);
-        } else if (post !== postToShow) {
-            changePostToShow(post);
+        if (changePostToShow) {
+            if ( posts && posts.length > 1) {
+                changePostToShow(posts[0]);
+            } else if (post !== postToShow) {
+                changePostToShow(post);
+            }
         }
     }, [post, posts])
 
     const handleClose = () => {
         handleOpen(false);
-        setPostsToHighlight([]);
-        changeIndex(0);
+        if (setPostsToHighlight) {
+            setPostsToHighlight([]);
+        }
+        if (changeIndex) {
+            changeIndex(0);
+        }
     }
 
     return (
