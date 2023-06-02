@@ -25,13 +25,14 @@ function DFMCalendar({posts}) {
 
     /* Comparison function for two date types */
     function isSameDay(a, b) {
-        if (a > b) {
-            return 1;
-        } else if (a < b) {
-            return -1;
-        } else {
-            return 0;
-        }
+        return a.getDate() === b.getDate() && a.getMonth() === b.getMonth();
+        // if (a > b) {
+        //     return 1;
+        // } else if (a < b) {
+        //     return -1;
+        // } else {
+        //     return 0;
+        // }
     }
 
     let highlightedDates = posts.map((post) => new Date(post.date));
@@ -70,7 +71,8 @@ function DFMCalendar({posts}) {
     
     /* Used by tileClassName in Calendar to highlight days with events */
     function tileClassName({ date }) {
-        if (highlightedDates.find((eventDay) => isSameDay(eventDay, date) === 0)) {
+        if (highlightedDates.find((eventDay) => isSameDay(eventDay, date))) {
+            console.log(highlightedDates.find((eventDay) => isSameDay(eventDay, date) === 0))
             return 'highlight';
         }
     }
