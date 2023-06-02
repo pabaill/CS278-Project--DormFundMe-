@@ -43,7 +43,7 @@ function DFMCalendar({posts}) {
 
     /* used by onClickDay to check if there is an event on a clicked day */
     const checkForEvents = (value) => {
-        let indices = highlightedDates.map((e, i) => isSameDay(e.toDateString(), value.toDateString()) === 0 ? i : '').filter(String)
+        let indices = highlightedDates.map((e, i) => isSameDay(e, value) ? i : '').filter(String)
         if (indices.length === 1) {
             setCount(indices[0]);
             setPostsToHighlight([]);
@@ -72,7 +72,6 @@ function DFMCalendar({posts}) {
     /* Used by tileClassName in Calendar to highlight days with events */
     function tileClassName({ date }) {
         if (highlightedDates.find((eventDay) => isSameDay(eventDay, date))) {
-            console.log(highlightedDates.find((eventDay) => isSameDay(eventDay, date) === 0))
             return 'highlight';
         }
     }
