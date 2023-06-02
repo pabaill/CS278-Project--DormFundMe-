@@ -27,6 +27,14 @@
     width: 20px;
 }
 
+.dfm-post-modal-flag {
+    cursor: pointer;
+    position: absolute;
+    right: 30px;
+    top: 0;
+    width: 20px;
+}
+
 .dfm-post-image {
     display: block;
     max-width: 90%;
@@ -67,4 +75,19 @@
     .dfm-post-modal-info {
         margin-top: 50px;
     }
+}
+
+.dfm-post-flag-modal {
+    background-color: #292929;
+    border-radius: 15px;
+    color: white;
+    min-width: 30%;
+    min-height: 20%;
+    margin: 10% 20%;
+    padding: 60px;
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
