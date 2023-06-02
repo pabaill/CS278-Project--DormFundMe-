@@ -44,9 +44,9 @@ function DFMPost({post, user}) {
             <Paper elevation={5} className='dfm-post-paper'>
                 <div className='dfm-post-buttons'>
                     {/* TODO: Make icons buttons that are interactive */}
-                    <KeyboardArrowUpIcon style={{color: Object.keys(post.upvotes).includes(user._id) && post.upvotes[user._id] === 1 ? '#6aa84f' : "inherit"}} onClick={() => handleUpvotes()}/>
+                    <KeyboardArrowUpIcon style={{cursor: 'pointer', color: Object.keys(post.upvotes).includes(user._id) && post.upvotes[user._id] === 1 ? '#6aa84f' : "inherit"}} onClick={() => handleUpvotes()}/>
                     <Typography variant="button" color="primary">{upvotes}</Typography>
-                    <KeyboardArrowDownIcon style={{color: Object.keys(post.upvotes).includes(user._id) && post.upvotes[user._id] === -1 ? '#6aa84f' : "inherit"}} onClick={() => handleDownvotes()}/>
+                    <KeyboardArrowDownIcon style={{cursor: 'pointer', color: Object.keys(post.upvotes).includes(user._id) && post.upvotes[user._id] === -1 ? '#6aa84f' : "inherit"}} onClick={() => handleDownvotes()}/>
                 </div>
                 <div className='dfm-post-info' onClick={() => handleOpen(true)}>
                     <Typography variant="body1">{post.title}</Typography>
