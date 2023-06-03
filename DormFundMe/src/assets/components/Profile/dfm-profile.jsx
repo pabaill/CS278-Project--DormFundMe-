@@ -27,7 +27,7 @@ function DFMProfile({profileCreate, logIn, changePage, user}) {
 
     return (
         <Paper elevation={5} className='dfm-profile-paper'>
-            <Typography position="absolute" variant="h4" textAlign="left">Profile for {user.displayName}</Typography>
+            <Typography position="absolute" variant="h4" textAlign="left">Profile for {user.realname}</Typography>
             <div className='dfm-profile-content'>
                 <div className='dfm-profile-avatar-info-container'>
                     <Avatar className='dfm-profile-avatar'
@@ -103,17 +103,10 @@ function DFMProfile({profileCreate, logIn, changePage, user}) {
                     </div>: <></>}
                 </div>
             </div>
-            {/* {profileCreate ? (
-                <div>
-                    <Button LinkComponent={Link} to="/profile" type='submit' variant='outlined' onClick={() => {logIn(true); changePage("/profile")}}>Save Changes</Button>
-                </div>
-            ) : (
-                <div>
-                    <Button type='submit' variant='outlined'>Save Changes</Button>
-                    <Button LinkComponent={Link} to="/login" type='submit' variant='outlined' onClick={() => logIn(false)} color='warning'>Logout</Button>
-                    <Button type='submit' variant='outlined' color='error'>Delete Profile</Button>
-                </div>
-            )} */}
+            <div>
+                <Button type='submit' variant='outlined'>Save Changes</Button>
+                <Button LinkComponent={Link} to="/login" type='submit' variant='outlined' onClick={() => logIn(false)} color='warning'>Logout</Button>
+            </div>
         </Paper>
     )
 }

@@ -59,6 +59,7 @@ function App() {
       const db = getDatabase();
       const dbRef = ref(getDatabase());
       get(child(dbRef, `users/${user.uid}`)).then((snapshot) => {
+        let isNewUser = false;
         if (snapshot.exists()) {
           console.log(snapshot.val())
           setUser(snapshot.val());
@@ -73,6 +74,7 @@ function App() {
           }
           set(ref(db, 'users/' + user.uid), newUser);
           setUser(newUser);
+          isNewUser = true;
         }
         get(child(dbRef, `posts`)).then((snapshot) => {
           if (snapshot.exists()) {
@@ -82,8 +84,13 @@ function App() {
             console.log("Didn't Find Posts!");
           }
           logIn(true);
-          changePage("/feed");
-          navigate("/feed");
+          if (isNewUser) {
+            changePage("/profile");
+            navigate("/profile");
+          } else {
+            changePage("/feed");
+            navigate("/feed");
+          }
         }).catch((error) => {
           console.error(error);
         });
