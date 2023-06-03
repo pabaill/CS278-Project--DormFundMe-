@@ -2,7 +2,7 @@ import {Select, MenuItem, Button, FormControl, FormHelperText, Input, InputLabel
 import "./dfm-profile.css";
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { get, child, ref, getDatabase } from 'firebase/database';
+import { get, set, child, ref, getDatabase } from 'firebase/database';
 import DFMEventModal from '../EventModal/dfm-event-modal';
 
 const dateOptions = {weekday: 'long', month: 'numeric', day: 'numeric'};
@@ -12,6 +12,7 @@ function DFMProfile({profileCreate, logIn, changePage, user}) {
     const [isAdmin, updatePrivileges] = useState(false);
     const [postsToApprove, setApprovePosts] = useState([]);
     const [inPreview, setOpenPreview] = useState(false);
+    const [error, setError] = useState("");
     const [postsToReview, setReviewPosts] = useState([]);
 
     useEffect(() => {
@@ -23,7 +24,21 @@ function DFMProfile({profileCreate, logIn, changePage, user}) {
                 setApprovePosts(Object.values(posts).map(p => p.upvotes > data.upvoteThreshold ? p : '').filter(String));
             });
         });
-    }, [user])
+    }, [user, error])
+
+    const setProfileInfo = (username) => {
+        setError("Checking for matching usernames");
+        get(child(ref(getDatabase()), `users`)).then((snapshot) => {
+            const users = snapshot.val();
+            if (!Object.values(users).find((u) => u.username === username && u._id !== user._id)) {
+                set(ref(getDatabase(), `users/${user._id}/username`), username);
+                user.username = username;
+                setError("");
+            } else {
+                setError("This username is not available");
+            }
+        });
+    }
 
     return (
         <Paper elevation={5} className='dfm-profile-paper'>
@@ -46,6 +61,7 @@ function DFMProfile({profileCreate, logIn, changePage, user}) {
                         <FormControl className='dfm-profile-form-control'>
                             <InputLabel htmlFor="new-username">Username</InputLabel>
                             <Input id="new-username" aria-describedby="username-helper-text" defaultValue={user.username} />
+                            <Typography variant='caption' color={error === 'This username is not available' ? 'error' : 'warning'} >{error}</Typography>
                         </FormControl>
                         <FormControl>
                             <InputLabel id="remind-me-label">Remind Me</InputLabel>
@@ -104,7 +120,7 @@ function DFMProfile({profileCreate, logIn, changePage, user}) {
                 </div>
             </div>
             <div>
-                <Button type='submit' variant='outlined'>Save Changes</Button>
+                <Button type='submit' variant='outlined' onClick={() => setProfileInfo(document.getElementById("new-username").value)}>Save Changes</Button>
                 <Button LinkComponent={Link} to="/login" type='submit' variant='outlined' onClick={() => logIn(false)} color='warning'>Logout</Button>
             </div>
         </Paper>
