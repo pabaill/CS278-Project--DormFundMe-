@@ -23,7 +23,7 @@ function DFMFeed({posts, changePosts, user}) {
                 New Post
             </Button>
             <ul className='dfm-feed-post-list'>
-                {Object.values(posts).sort((a,b) => b.upvotes - a.upvotes).map(p => (
+                {Object.values(posts).sort((a,b) => b.date - a.date).map(p => (
                     <li key={p._id} className='dfm-feed-post-list-item'>
                         <DFMPost user={user} post={p}></DFMPost>
                     </li>
