@@ -2,9 +2,13 @@ import {Typography, Modal, Box, TextField, MobileStepper, Button, Select, MenuIt
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
 import FlagIcon from '@mui/icons-material/Flag';
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 import "./dfm-event-modal.css";
 import { useEffect, useState } from 'react';
 import { getDatabase } from 'firebase/database';
+import { MobileDateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 
 
 
@@ -12,6 +16,8 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
     const [index, changeIndex] = useState(0);
     const [postToShow, changePostToShow] = useState(post === -1 ? posts[0] : post);
     const [flagModalIsOpen, changeFlagModalOpen] = useState(false);
+    const [commentModalIsOpen, changeCommentModalOpen] = useState(false);
+    const [suggestionType, changeSuggestionType] = useState("");
     useEffect(() => {
         if (changePostToShow) {
             if ( posts && posts.length > 1) {
@@ -39,6 +45,16 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
         // To access comments: Object.values(post.comments).map(c => <div>{c.changeType}</div>)
     }
 
+    const submitComment = (comment) => {
+        const commentId = user._id + (new Date()).valueOf();
+        set(ref(getDatabase(), `posts/${post._id}/comments/${commentId}`), {/*ADD COMMENT OBJECT HERE*/})
+    }
+
+    const updateParameter = (field, val) => {
+        console.log(val)
+    }
+    
+
     return (
         <div>
         <Modal open={modalOpen} onClose={handleClose}>
@@ -50,6 +66,7 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
                     </header>
                     <CloseIcon onClick={() => handleOpen(false)} className="dfm-post-modal-close" />
                     <FlagIcon onClick={() => changeFlagModalOpen(true)} className="dfm-post-modal-flag" />
+                    <RateReviewIcon onClick={() => changeCommentModalOpen(true)} className="dfm-post-modal-comment" />
                     <div className='dfm-post-modal-info'>
                         <Typography variant="body1" color='primary'>
                         {new Date(postToShow.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} on {new Date(postToShow.date).toLocaleDateString('en-US', dateOptions)}
@@ -108,7 +125,66 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
                             <Button color='error' onClick={() => changeFlagModalOpen(false)}>Cancel</Button>
                         </FormControl>
                     </Box>
-                </Modal>
+            </Modal>
+            <Modal open={commentModalIsOpen} onClose={() => {changeCommentModalOpen(false)}}>
+                    <Box className='dfm-post-comment-modal'>
+                        <Typography variant='h4'>Propose a Suggestion</Typography>
+                        <Typography variant='caption'>Perfect doesn't happen on the first try. What do you think we should do differently about this proposed event?</Typography>
+                        <CloseIcon onClick={() => changeCommentModalOpen(false)} className="dfm-post-modal-close" />
+                        <div className='dfm-post-comment-column-div'>
+                            <div className='dfm-post-creation-modal-info-col-1'>
+                                <FormControl>
+                                    <InputLabel id="budget-label">I want to change the...</InputLabel>
+                                    <Select
+                                        defaultValue={0}
+                                        onChange={(e) => changeSuggestionType(e.target.value)}
+                                    >
+                                    <MenuItem value={"budget"}>Budget</MenuItem>
+                                    <MenuItem value={"location"}>Location</MenuItem>
+                                    <MenuItem value={"time"}>Time</MenuItem>
+                                    <MenuItem value={"other"}>Other</MenuItem>
+                                    </Select>
+                                </FormControl>                                
+                            </div>
+                            <div className='dfm-post-creation-modal-info-col-2'>
+                                {suggestionType === "budget" ? 
+                                    <FormControl>
+                                            <InputLabel id="budget-label">Approximate Budget</InputLabel>
+                                            <Select>
+                                                <MenuItem value={0}>Small ($0-$99)</MenuItem>
+                                                <MenuItem value={100}>Medium ($100-$299)</MenuItem>
+                                                <MenuItem value={300}>Large ($300-$999)</MenuItem>
+                                                <MenuItem value={1000}>Extra Large ($1000+)</MenuItem>
+                                            </Select>
+                                    </FormControl> : ""
+                                }
+                                {suggestionType === "location" ? 
+                                    <div>
+                                        <TextField className='dfm-post-name-field' label='New Location' variant='outlined'/>
+                                    </div> : ""
+                                }
+                                {suggestionType === "time" ? 
+                                    <div>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <MobileDateTimePicker label="New Event Time" defaultValue={dayjs(new Date())}/>
+                                        </LocalizationProvider>
+                                    </div> : ""
+                                }
+                                {suggestionType === "other" ? 
+                                    <div>
+                                        <TextField className='dfm-post-name-field' label='Your Suggestion' variant='outlined'/>
+                                    </div> : ""
+                                }                          
+                                <TextField className='dfm-post-name-field' label='Why the change?' variant='outlined'/>
+                            </div>
+                        </div>
+                        
+                        <FormControl>
+                            <Button color='primary' onClick={() => {setFlag(document.getElementById("flag-select").value)}}>Submit</Button>
+                            <Button color='error' onClick={() => changeCommentModalOpen(false)}>Cancel</Button>
+                        </FormControl>
+                    </Box>
+            </Modal>
             </div>
     )
 }

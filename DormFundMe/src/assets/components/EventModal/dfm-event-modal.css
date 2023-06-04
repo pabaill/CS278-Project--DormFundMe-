@@ -19,11 +19,19 @@
     top: 0;
 }
 
+.dfm-post-modal-comment {
+    cursor: pointer;
+    position: absolute;
+    right: 60px;
+    top: 5px;
+    width: 20px;
+}
+
 .dfm-post-modal-close {
     cursor: pointer;
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 5px;
+    top: 5px;
     width: 20px;
 }
 
@@ -31,7 +39,7 @@
     cursor: pointer;
     position: absolute;
     right: 30px;
-    top: 0;
+    top: 5px;
     width: 20px;
 }
 
@@ -90,4 +98,44 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.dfm-post-comment-modal {
+    background-color: #292929;
+    border-radius: 15px;
+    color: white;
+    min-width: 30%;
+    min-height: 20%;
+    margin: 10% 20%;
+    padding: 60px;
+    padding-top: 60px;
+    display: grid;
+    position: relative;
+    padding-bottom: 20px;
+}
+.dfm-post-name-field, .dfm-post-description-field, .dfm-post-location-field, .dfm-post-timeline-field, .dfm-post-benefit-field, .dfm-post-budget-field {
+    min-width: 50%;
+}
+
+.dfm-post-comment-column-div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.dfm-post-creation-modal-info-col-1 {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-content: center;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.dfm-post-creation-modal-info-col-2 {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-content: center;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: 20px;
+    padding-top: 20px;
 }
