@@ -29,6 +29,7 @@ function DFMPostCreateModal({ modalOpen, handleOpen, changePosts, posts, user })
         updateEvent("image", "https://images.megapixl.com/2219/22193936.jpg");
         updateEvent("_id", user.username + newEvent.date.valueOf());
         updateEvent("flags", 0);
+        updateEvent("comments", {});
         console.log(newEvent);
         const db = getDatabase();
         set(ref(db, 'posts/' + newEvent._id), newEvent);

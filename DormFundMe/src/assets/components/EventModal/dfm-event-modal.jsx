@@ -4,10 +4,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import FlagIcon from '@mui/icons-material/Flag';
 import "./dfm-event-modal.css";
 import { useEffect, useState } from 'react';
+import { getDatabase } from 'firebase/database';
 
 
 
-function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPostsToHighlight}) {
+function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPostsToHighlight, user}) {
     const [index, changeIndex] = useState(0);
     const [postToShow, changePostToShow] = useState(post === -1 ? posts[0] : post);
     const [flagModalIsOpen, changeFlagModalOpen] = useState(false);
@@ -33,6 +34,9 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
 
     const selectFlag = (flag) => {
         console.log(flag);
+        // const commentId = user._id + (new Date()).valueOf();
+        // set(ref(getDatabase(), `posts/${post._id}/comments/${commentId}`), {/*ADD COMMENT OBJECT HERE*/})
+        // To access comments: Object.values(post.comments).map(c => <div>{c.changeType}</div>)
     }
 
     return (
@@ -58,7 +62,7 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
                         </Typography>
                     </div>
                     <img className='dfm-post-image' src={post.image}></img>
-                    <TextField className='dfm-post-new-comment-field' label="New Comment" variant='outlined' />
+                    {/* TODO: Comments field goes here */}
                     {posts && posts.length > 1 ? 
                     <MobileStepper
                         variant="text"

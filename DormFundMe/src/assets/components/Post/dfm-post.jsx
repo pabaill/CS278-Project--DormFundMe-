@@ -53,7 +53,7 @@ function DFMPost({post, user}) {
                     <Typography variant="caption">{new Date(post.date).toLocaleDateString('en-US', dateOptions)} at {new Date(post.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</Typography>
                 </div>
             </Paper>
-            <DFMEventModal post={post} modalOpen={modalOpen} handleOpen={handleOpen} dateOptions={dateOptions} />
+            <DFMEventModal user={user} post={post} modalOpen={modalOpen} handleOpen={handleOpen} dateOptions={dateOptions} />
         </div>
     )
 }
