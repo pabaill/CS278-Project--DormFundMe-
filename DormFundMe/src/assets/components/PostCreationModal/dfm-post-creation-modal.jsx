@@ -6,13 +6,20 @@ import "./dfm-post-creation-modal.css";
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { getDatabase, ref, set, get, child } from "firebase/database";
+import {getStorage, uploadBytes, ref as storageRef} from 'firebase/storage';
 
 function DFMPostCreateModal({ modalOpen, handleOpen, changePosts, posts, user }) {
     const [fileUploaded, saveUploadedFile] = useState(undefined);
     const [newEvent, updateNewEvent] = useState({date: (new Date()).valueOf()})
     const onFileUpload = (e) => {
         if (e.target.files) {
-            saveUploadedFile(e.target.files[0].name)
+            const fileName = (new Date).valueOf() + e.target.files[0].name;
+            // We could store it like this but it's buggy and will take lots of time and isn't super relevant to the social computing concepts
+            // uploadBytes(storageRef(getStorage(), "images/" + fileName), e.target.files[0]).then((snapshot) => {
+            //     console.log(snapshot.val())
+            //     saveUploadedFile(fileName)
+            // });
+            saveUploadedFile(fileName);
         }
     }
 
