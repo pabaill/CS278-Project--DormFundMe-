@@ -106,7 +106,7 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
             <Modal open={flagModalIsOpen} onClose={() => {changeFlagModalOpen(false)}}>
                     <Box className='dfm-post-flag-modal'>
                         <Typography variant='h4'>Report this Post</Typography>
-                        <Typography variant='caption'>Sorry you had to see that. Let us know why this post wasn't helpful for you and we'll hide it from your feed. If this post meets the flag threshold for this dorm it will be removed and manually reviewed by your staff team.</Typography>
+                        <Typography style={{marginBottom: "20px"}} variant='caption'>Sorry you had to see that. Let us know why this post wasn't helpful for you and we'll hide it from your feed. If this post meets the flag threshold for this dorm it will be removed and manually reviewed by your staff team.</Typography>
                         <CloseIcon onClick={() => changeFlagModalOpen(false)} className="dfm-post-modal-close" />
                         <FormControl>
                             <InputLabel id="flag-label">Flag Type</InputLabel>
