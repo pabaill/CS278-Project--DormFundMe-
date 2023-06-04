@@ -130,6 +130,12 @@
     padding-top: 20px;
     padding-bottom: 20px;
 }
+.dfm-post-creation-modal-inner {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-content: center;
+}
 .dfm-post-creation-modal-info-col-2 {
     display: flex;
     justify-content: space-around;

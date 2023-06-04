@@ -84,7 +84,7 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
                         </Typography>
                     </div>
                     <img className='dfm-post-image' src={post.image}></img>
-                    {/* TODO: Comments field goes here */}
+                    
                     {posts && posts.length > 1 ? 
                     <MobileStepper
                         variant="text"
@@ -164,19 +164,19 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
                                     </FormControl> : ""
                                 }
                                 {suggestionType === "location" ? 
-                                    <div>
+                                    <div className='dfm-post-creation-modal-inner'>
                                         <TextField onChange={(e) => changeSuggestionValue(e.target.value)} className='dfm-post-name-field' label='New Location' variant='outlined'/>
                                     </div> : ""
                                 }
                                 {suggestionType === "time" ? 
-                                    <div>
+                                    <div className='dfm-post-creation-modal-inner'>
                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                             <MobileDateTimePicker onChange={(e) => changeSuggestionValue(e.target.value)} label="New Event Time" defaultValue={dayjs(new Date())}/>
                                         </LocalizationProvider>
                                     </div> : ""
                                 }
                                 {suggestionType === "other" ? 
-                                    <div>
+                                    <div className='dfm-post-creation-modal-inner'>
                                         <TextField onChange={(e) => changeSuggestionValue(e.target.value)} className='dfm-post-name-field' label='Your Suggestion' variant='outlined'/>
                                     </div> : ""
                                 }                          
@@ -189,6 +189,7 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
                             <Button color='error' onClick={() => changeCommentModalOpen(false)}>Cancel</Button>
                         </FormControl>
                     </Box>
+
             </Modal>
             </div>
     )
