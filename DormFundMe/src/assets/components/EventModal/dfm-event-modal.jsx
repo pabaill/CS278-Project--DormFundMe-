@@ -1,4 +1,4 @@
-import {Typography, Modal, Box, TextField, MobileStepper, Button, Select, MenuItem, FormControl, InputLabel} from '@mui/material';
+import {Typography, Modal, Box, TextField, MobileStepper, Button, Select, MenuItem, FormControl, InputLabel, Paper} from '@mui/material';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
 import FlagIcon from '@mui/icons-material/Flag';
@@ -7,7 +7,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import "./dfm-event-modal.css";
 import { useEffect, useState } from 'react';
-import { getDatabase, set, ref } from 'firebase/database';
+import { getDatabase, set, ref, get, child } from 'firebase/database';
 import { MobileDateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 
 
@@ -49,9 +49,15 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
     const submitComment = () => {
         const commentId = user._id + (new Date()).valueOf();
         set(ref(getDatabase(), `posts/${post._id}/comments/${commentId}`), {
+            user: user.username,
             suggestionType: suggestionType,
             suggestionValue: suggestionType === "time" ? suggestionValue.valueOf() : suggestionValue,
             reason: document.getElementById("why-the-change").value
+        });
+        get(child(ref(getDatabase()), `posts/${post._id}`)).then((snapshot) => {
+            post = snapshot.val();
+            changeSuggestionType("");
+            changeSuggestionValue("");
         });
     }
 
@@ -82,6 +88,20 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
                         <Typography variant="body2">
                         {postToShow.description}
                         </Typography>
+                        <ul className='dfm-feed-post-list'>
+                            {post.comments ? Object.values(post.comments).map(c => (
+                                <li>
+                                    <Paper style={{display: "grid", gridTemplateColumns: "70% 10%"}}>
+                                    <div>
+                                        <Typography variant="body1">User {c.user} suggests...</Typography>
+                                        <Typography variant="caption">Changing {c.suggestionType !== "other" ? `${c.suggestionType} to ${c.suggestionValue}` : `${c.suggestionValue}`}</Typography>
+                                        <Typography variant="body2"><b>Reason?</b>: {c.reason}</Typography>
+                                    </div>
+                                    {user.username === post.author ? <Button color='primary'>Accept?</Button> : ""}
+                                    </Paper>
+                                </li>
+                            )) : ""}
+                        </ul>
                     </div>
                     <img className='dfm-post-image' src={post.image}></img>
                     
