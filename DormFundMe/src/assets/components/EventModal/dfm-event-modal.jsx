@@ -7,7 +7,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import "./dfm-event-modal.css";
 import { useEffect, useState } from 'react';
-import { getDatabase } from 'firebase/database';
+import { getDatabase, set, ref } from 'firebase/database';
 import { MobileDateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 
 
@@ -18,6 +18,7 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
     const [flagModalIsOpen, changeFlagModalOpen] = useState(false);
     const [commentModalIsOpen, changeCommentModalOpen] = useState(false);
     const [suggestionType, changeSuggestionType] = useState("");
+    const [suggestionValue, changeSuggestionValue] = useState("");
     useEffect(() => {
         if (changePostToShow) {
             if ( posts && posts.length > 1) {
@@ -45,9 +46,13 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
         // To access comments: Object.values(post.comments).map(c => <div>{c.changeType}</div>)
     }
 
-    const submitComment = (comment) => {
+    const submitComment = () => {
         const commentId = user._id + (new Date()).valueOf();
-        set(ref(getDatabase(), `posts/${post._id}/comments/${commentId}`), {/*ADD COMMENT OBJECT HERE*/})
+        set(ref(getDatabase(), `posts/${post._id}/comments/${commentId}`), {
+            suggestionType: suggestionType,
+            suggestionValue: suggestionType === "time" ? suggestionValue.valueOf() : suggestionValue,
+            reason: document.getElementById("why-the-change").value
+        });
     }
 
     const updateParameter = (field, val) => {
@@ -134,7 +139,7 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
                         <div className='dfm-post-comment-column-div'>
                             <div className='dfm-post-creation-modal-info-col-1'>
                                 <FormControl>
-                                    <InputLabel id="budget-label">I want to change the...</InputLabel>
+                                    <InputLabel id="type-label">I want to change the...</InputLabel>
                                     <Select
                                         defaultValue={0}
                                         onChange={(e) => changeSuggestionType(e.target.value)}
@@ -150,7 +155,7 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
                                 {suggestionType === "budget" ? 
                                     <FormControl>
                                             <InputLabel id="budget-label">Approximate Budget</InputLabel>
-                                            <Select>
+                                            <Select onChange={(e) => changeSuggestionValue(e.target.value)}>
                                                 <MenuItem value={0}>Small ($0-$99)</MenuItem>
                                                 <MenuItem value={100}>Medium ($100-$299)</MenuItem>
                                                 <MenuItem value={300}>Large ($300-$999)</MenuItem>
@@ -160,27 +165,27 @@ function DFMEventModal({post, posts, modalOpen, handleOpen, dateOptions, setPost
                                 }
                                 {suggestionType === "location" ? 
                                     <div>
-                                        <TextField className='dfm-post-name-field' label='New Location' variant='outlined'/>
+                                        <TextField onChange={(e) => changeSuggestionValue(e.target.value)} className='dfm-post-name-field' label='New Location' variant='outlined'/>
                                     </div> : ""
                                 }
                                 {suggestionType === "time" ? 
                                     <div>
                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                            <MobileDateTimePicker label="New Event Time" defaultValue={dayjs(new Date())}/>
+                                            <MobileDateTimePicker onChange={(e) => changeSuggestionValue(e.target.value)} label="New Event Time" defaultValue={dayjs(new Date())}/>
                                         </LocalizationProvider>
                                     </div> : ""
                                 }
                                 {suggestionType === "other" ? 
                                     <div>
-                                        <TextField className='dfm-post-name-field' label='Your Suggestion' variant='outlined'/>
+                                        <TextField onChange={(e) => changeSuggestionValue(e.target.value)} className='dfm-post-name-field' label='Your Suggestion' variant='outlined'/>
                                     </div> : ""
                                 }                          
-                                <TextField className='dfm-post-name-field' label='Why the change?' variant='outlined'/>
+                                <TextField id="why-the-change" className='dfm-post-name-field' label='Why the change?' variant='outlined'/>
                             </div>
                         </div>
                         
                         <FormControl>
-                            <Button color='primary' onClick={() => {setFlag(document.getElementById("flag-select").value)}}>Submit</Button>
+                            <Button color='primary' onClick={() => {submitComment()}}>Submit</Button>
                             <Button color='error' onClick={() => changeCommentModalOpen(false)}>Cancel</Button>
                         </FormControl>
                     </Box>
