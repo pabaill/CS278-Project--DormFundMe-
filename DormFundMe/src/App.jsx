@@ -61,7 +61,6 @@ function App() {
       get(child(dbRef, `users/${user.uid}`)).then((snapshot) => {
         let isNewUser = false;
         if (snapshot.exists()) {
-          console.log(snapshot.val())
           setUser(snapshot.val());
         } else {
           // New user; set default values
@@ -78,7 +77,6 @@ function App() {
         }
         get(child(dbRef, `posts`)).then((snapshot) => {
           if (snapshot.exists()) {
-            console.log("Found Posts! ", snapshot.val())
             changePosts(snapshot.val());
           } else {
             console.log("Didn't Find Posts!");

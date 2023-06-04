@@ -9,7 +9,7 @@ import { getDatabase, ref, set, get, child } from "firebase/database";
 
 function DFMPostCreateModal({ modalOpen, handleOpen, changePosts, posts, user }) {
     const [fileUploaded, saveUploadedFile] = useState(undefined);
-    const [newEvent, updateNewEvent] = useState({date: new Date()})
+    const [newEvent, updateNewEvent] = useState({date: (new Date()).valueOf()})
     const onFileUpload = (e) => {
         if (e.target.files) {
             saveUploadedFile(e.target.files[0].name)
@@ -32,7 +32,7 @@ function DFMPostCreateModal({ modalOpen, handleOpen, changePosts, posts, user })
 
     const updateEvent = (field, val) => {
         if (field === "date") {
-            val = new Date(val.getFullYear(), val.getMonth(), val.getDate()).valueOf();
+            val = val.valueOf();
         }
         const updatedEvent = newEvent;
         updatedEvent[field] = val;

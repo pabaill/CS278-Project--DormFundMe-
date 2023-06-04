@@ -1,19 +1,26 @@
 import { Button, Typography, Paper } from '@mui/material';
 import "./dfm-feed.css";
 import DFMPost from "../Post/dfm-post";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DFMPostCreateModal from '../PostCreationModal/dfm-post-creation-modal';
 import DFMEventModal from '../EventModal/dfm-event-modal';
 import { useParams } from 'react-router-dom';
+import { get, getDatabase, ref, child } from 'firebase/database';
 
-const dormname = "Yost";
 const dateOptions = {weekday: 'long', month: 'numeric', day: 'numeric'};
 
 
 function DFMFeed({posts, changePosts, user}) {
     const {post_id} = useParams()
     const [modalOpen, handleOpen] = useState(false);
-    const [linkedOpen, handleLinkedOpen] = useState(post_id !== undefined)
+    const [linkedOpen, handleLinkedOpen] = useState(post_id !== undefined);
+    const [dormname, setDormName] = useState("");
+
+    useEffect(() => {
+        get(child(ref(getDatabase()), `info/dormName`)).then((snapshot) => {
+            setDormName(snapshot.val());
+        })
+    }, [user])
 
     return (
         // TODO: "Add posts" button/menu, filtering of posts
