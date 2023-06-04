@@ -3,6 +3,12 @@
     flex-direction: column;
 }
 
+.dfm-feed-wrapper {
+    display: grid;
+    column-gap: 5%;
+    grid-template-columns: 70% 25%;
+}
+
 .dfm-feed-post-list {
     list-style-type: none;
     width: 80%;
