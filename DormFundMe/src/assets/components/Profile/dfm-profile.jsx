@@ -21,7 +21,8 @@ function DFMProfile({profileCreate, logIn, changePage, user}) {
             updatePrivileges(data.admins.includes(user._id));
             get(child(ref(getDatabase()), `posts`)).then((snapshot) => {
                 const posts = snapshot.val();
-                setApprovePosts(Object.values(posts).map(p => p.upvotes > data.upvoteThreshold ? p : '').filter(String));
+                setApprovePosts(Object.values(posts).map(p => Object.values(p.upvotes).length >= data.upvoteThreshold ? p : '').filter(String));
+                setReviewPosts(Object.values(posts).map(p => Object.values(p.flags).length >= data.flagThreshold ? p : '').filter(String));
             });
         });
     }, [user, error])
@@ -98,15 +99,15 @@ function DFMProfile({profileCreate, logIn, changePage, user}) {
                             <div>
                                 <Typography align='left' variant="h6">Posts to Approve</Typography>
                                 <ul className='dfm-profile-post-view'>
-                                    {postsToApprove.map(p => (
-                                        <li key={p._id} className='dfm-feed-post-list-item'>
+                                    {postsToApprove.map(p1 => (
+                                        <li key={p1._id} className='dfm-feed-post-list-item'>
                                             <Paper onClick={() => setOpenPreview(true)}>
-                                                <Typography variant="body1">{p.title}</Typography>
+                                                <Typography variant="body1">{p1.title}</Typography>
                                                 <Button color='primary'>Approve</Button>
                                                 <Button color='info'>Preview</Button>
                                                 <Button color='error'>Reject</Button>
                                             </Paper>
-                                            <DFMEventModal user={user} post={p} modalOpen={inPreview} handleOpen={setOpenPreview} dateOptions={dateOptions} >
+                                            <DFMEventModal user={user} post={p1} modalOpen={inPreview} handleOpen={setOpenPreview} dateOptions={dateOptions} >
                                             </DFMEventModal>
                                         </li>
                                     ))}
@@ -114,6 +115,20 @@ function DFMProfile({profileCreate, logIn, changePage, user}) {
                             </div>
                             <div>
                                 <Typography align='left' variant="h6">Posts to Review</Typography>
+                                <ul className='dfm-profile-post-view'>
+                                    {postsToReview.map(p2 => (
+                                        <li key={p2._id} className='dfm-feed-post-list-item'>
+                                            <Paper onClick={() => setOpenPreview(true)}>
+                                                <Typography variant="body1">{p2.title}</Typography>
+                                                <Button color='primary'>Allow</Button>
+                                                <Button color='info'>Review</Button>
+                                                <Button color='error'>Delete</Button>
+                                            </Paper>
+                                            <DFMEventModal user={user} post={p2} modalOpen={inPreview} handleOpen={setOpenPreview} dateOptions={dateOptions} >
+                                            </DFMEventModal>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
                         </div>
                     </div>: <></>}
